@@ -1,0 +1,24 @@
+{
+  "id": "./",
+  "name": "EASTSIDER – Eastside Design and Construction",
+  "short_name": "EASTSIDER",
+  "description": "Timesheets, expenses, job costing and payroll for Eastside Design and Construction",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#17375e",
+  "theme_color": "#17375e",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Timesheet", "url": "./?tab=timesheet", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "Add expense", "url": "./?tab=expenses", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "Review (admin)", "url": "./?tab=review", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
+  ]
+}

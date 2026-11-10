@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EASTSIDER – Eastside Design and Construction</title>
+  <meta name="description" content="EASTSIDER by Eastside Design and Construction – timesheets, expenses, job costing and payroll">
+  <meta name="theme-color" content="#17375e">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="EASTSIDER">
+  <script src="config.js"></script>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f4f2; --surface: #ffffff; --surface-2: #f8f8f6; --border: #e2e1dc; --border-strong: #c9c8c1;
+  --text: #121211; --text-2: #52514e; --text-3: #7a7973;
+  --accent: #17375e; --accent-ink: #ffffff; --accent-soft: #e8eef6; --link: #1f5fa8;
+  --brand-navy: #17375e; --brand-amber: #e8a33d; --topbar: #17375e; --topbar-ink: #ffffff; --topbar-2: #c9d6e6;
+  --good: #1f7a1f; --good-soft: #e3f3e3; --warn: #9a5b00; --warn-soft: #fdf1dc; --bad: #c0392b; --bad-soft: #fbe7e5;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --grid: #e8e7e2; --shadow: 0 1px 2px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121211; --surface: #1a1a19; --surface-2: #222220; --border: #2f2f2c; --border-strong: #45443f;
+    --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938a;
+    --accent: #79aeea; --accent-ink: #0d1b2a; --accent-soft: #1b2a3c; --link: #8dbcf0;
+    --topbar: #0f2440; --topbar-ink: #ffffff; --topbar-2: #a9bcd3;
+    --good: #5cc45c; --good-soft: #1c2e1c; --warn: #f0b04a; --warn-soft: #33270f; --bad: #f07167; --bad-soft: #3a1d1a;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --grid: #2c2c29; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211; --surface: #1a1a19; --surface-2: #222220; --border: #2f2f2c; --border-strong: #45443f;
+  --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938a;
+  --accent: #79aeea; --accent-ink: #0d1b2a; --accent-soft: #1b2a3c; --link: #8dbcf0;
+  --topbar: #0f2440; --topbar-ink: #ffffff; --topbar-2: #a9bcd3;
+  --good: #5cc45c; --good-soft: #1c2e1c; --warn: #f0b04a; --warn-soft: #33270f; --bad: #f07167; --bad-soft: #3a1d1a;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --grid: #2c2c29; --shadow: none;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--link); }
+.hidden { display: none !important; }
+.muted { color: var(--text-2); } .small { font-size: 13px; } .tiny { font-size: 12px; color: var(--text-3); }
+.num { font-variant-numeric: tabular-nums; text-align: right; }
+h1, h2, h3 { margin: 0 0 8px; line-height: 1.2; } h1 { font-size: 22px; } h2 { font-size: 18px; } h3 { font-size: 15px; }
+
+/* layout */
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); background: var(--topbar); color: var(--topbar-ink); }
+.topbar .iconbtn { color: var(--topbar-2); } .topbar .iconbtn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.topbar .btn { background: transparent; border-color: rgba(255,255,255,.35); color: #fff; } .topbar .btn:hover { background: rgba(255,255,255,.12); }
+.brand { font-weight: 700; line-height: 1.15; min-width: 0; } .brand small { display: block; font-weight: 400; color: var(--topbar-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wordmark { font-weight: 800; letter-spacing: .18em; font-size: 26px; } .wordmark.sm { font-size: 16px; letter-spacing: .16em; }
+.tagline { color: var(--brand-amber); font-size: 13px; font-weight: 600; }
+.logo { flex: none; border-radius: 10px; }
+.brandhero { display: flex; align-items: center; gap: 14px; background: var(--brand-navy); color: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+.offline { background: var(--warn-soft); color: var(--warn); text-align: center; font-size: 13px; padding: 6px 12px; font-weight: 600; }
+.nowrap { white-space: nowrap; }
+.btn.danger, .btn.ghost.danger { color: var(--bad); }
+.seg { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 4px 0 12px; }
+.seg button { text-align: left; border: 1.5px solid var(--border-strong); background: var(--surface); border-radius: 10px; padding: 10px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.seg button span { font-size: 12px; color: var(--text-2); }
+.seg button.on { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.pill.card { background: var(--surface-2); color: var(--text-2); border-color: var(--border-strong); }
+.pill.allow { background: var(--good-soft); color: var(--good); }
+.spacer { flex: 1; }
+.tabs { display: flex; gap: 4px; padding: 8px 16px 0; overflow-x: auto; background: var(--surface); border-bottom: 1px solid var(--border); scrollbar-width: none; }
+.tab { border: 0; background: none; padding: 10px 12px; border-bottom: 2px solid transparent; color: var(--text-2); cursor: pointer; white-space: nowrap; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; position: relative; }
+.tab .ti { flex: none; opacity: .85; }
+.tab.active { color: var(--text); border-bottom-color: var(--accent); } .tab.active .ti { opacity: 1; color: var(--accent); }
+@media (max-width: 760px) {
+  .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); border-top: 1px solid var(--border); border-bottom: 0; gap: 0; box-shadow: 0 -2px 12px rgba(0,0,0,.08); }
+  .tabs.emp { justify-content: space-around; }
+  .tab { flex-direction: column; gap: 2px; padding: 6px 8px; font-size: 11px; border-bottom: 0; border-top: 2px solid transparent; min-width: 64px; }
+  .tabs.emp .tab { flex: 1; }
+  .tab.active { border-top-color: var(--accent); }
+  .tab .count { position: absolute; top: 2px; right: 10px; margin: 0; }
+  main { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .totalbar { bottom: calc(64px + env(safe-area-inset-bottom)); }
+  #toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .brand small { max-width: 38vw; }
+  .topbar .btn.sm { padding: 4px 8px; }
+  input, select, textarea { font-size: 16px; } /* stops iPhone zooming into fields */
+}
+.tab .count { background: var(--bad); color: #fff; border-radius: 99px; padding: 0 6px; font-size: 11px; margin-left: 4px; }
+main { max-width: 1200px; margin: 0 auto; padding: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label { font-size: 12px; color: var(--text-2); font-weight: 600; }
+input, select, textarea { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px; padding: 8px 10px; min-height: 38px; width: 100%; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+input[type=checkbox] { width: auto; min-height: 0; }
+textarea { min-height: 70px; resize: vertical; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 8px; padding: 8px 14px; min-height: 38px; cursor: pointer; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.good { background: var(--good); border-color: var(--good); color: #fff; }
+.btn.bad { background: var(--surface); border-color: var(--bad); color: var(--bad); }
+.btn.ghost { border-color: transparent; background: none; }
+.btn.sm { padding: 4px 10px; min-height: 30px; font-size: 13px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.iconbtn { border: 0; background: none; cursor: pointer; padding: 6px; border-radius: 6px; color: var(--text-2); line-height: 0; }
+.iconbtn:hover { background: var(--surface-2); color: var(--text); }
+
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 600; border: 1px solid transparent; white-space: nowrap; }
+.pill.Approved, .pill.Active { background: var(--good-soft); color: var(--good); }
+.pill.Submitted, .pill.Pending { background: var(--warn-soft); color: var(--warn); }
+.pill.Rejected, .pill.Expired { background: var(--bad-soft); color: var(--bad); }
+.pill.Draft, .pill.Closed, .pill.neutral { background: var(--surface-2); color: var(--text-2); border-color: var(--border); }
+.pill.tool { background: var(--accent-soft); color: var(--accent); }
+
+.banner { padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; border: 1px solid; }
+.banner.info { background: var(--accent-soft); border-color: transparent; }
+.banner.good { background: var(--good-soft); border-color: transparent; color: var(--good); }
+.banner.warn { background: var(--warn-soft); border-color: transparent; color: var(--warn); }
+.banner.bad { background: var(--bad-soft); border-color: transparent; color: var(--bad); }
+
+/* tables */
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; font-size: 14px; }
+th { background: var(--surface-2); font-size: 12px; color: var(--text-2); font-weight: 600; white-space: nowrap; position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+tr.click { cursor: pointer; } tr.click:hover td { background: var(--surface-2); }
+tfoot td { font-weight: 700; background: var(--surface-2); }
+
+/* login */
+.login { max-width: 400px; margin: 7vh auto; padding: 0 16px calc(16px + env(safe-area-inset-bottom)); }
+.login .card { padding: 24px; }
+.login h1 { margin-bottom: 4px; }
+
+/* week nav */
+.weeknav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.weeknav .label { font-weight: 700; min-width: 190px; text-align: center; }
+
+/* timesheet */
+.day { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; background: var(--surface); }
+.dayhead { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--surface-2); border-bottom: 1px solid var(--border); border-radius: 10px 10px 0 0; }
+.dayhead b { min-width: 92px; }
+.entry { display: grid; grid-template-columns: minmax(150px, 2fr) 100px 100px 90px minmax(120px, 2fr) 60px 34px; gap: 8px; padding: 8px 12px; align-items: center; border-bottom: 1px dashed var(--border); }
+.entry:last-child { border-bottom: 0; }
+.entry .hrs { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.entry .lbl { display: none; }
+.daybody .empty { padding: 10px 12px; color: var(--text-3); font-size: 13px; }
+.totalbar { position: sticky; bottom: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; box-shadow: 0 -2px 10px rgba(0,0,0,.06); z-index: 5; }
+.totalbar .big { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .entry { grid-template-columns: 1fr 1fr; }
+  .entry .proj, .entry .notes { grid-column: 1 / -1; }
+  .entry .lbl { display: block; font-size: 11px; color: var(--text-3); }
+  .entry .hrs { text-align: left; }
+}
+
+/* expenses */
+.exp-list { display: grid; gap: 10px; }
+.exp { display: grid; grid-template-columns: 72px 1fr auto; gap: 12px; align-items: start; border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--surface); }
+.thumb { width: 72px; height: 72px; border-radius: 8px; object-fit: cover; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-3); overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.exp .amt { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; text-align: right; }
+.filedrop { border: 2px dashed var(--border-strong); border-radius: 10px; padding: 14px; text-align: center; cursor: pointer; color: var(--text-2); }
+.filedrop.has { border-style: solid; border-color: var(--good); color: var(--good); }
+
+/* review */
+.review-grid { display: grid; grid-template-columns: 360px 1fr; gap: 14px; align-items: start; }
+@media (max-width: 960px) { .review-grid { grid-template-columns: 1fr; } }
+.qitem { padding: 10px 12px; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; gap: 8px; align-items: center; }
+.qitem:hover { background: var(--surface-2); } .qitem.sel { background: var(--accent-soft); }
+.qitem .grow { flex: 1; min-width: 0; } .qitem .t { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.edit-grid input, .edit-grid select { min-height: 32px; padding: 4px 6px; font-size: 13px; }
+.rev-exp { display: grid; grid-template-columns: 140px 1fr; gap: 12px; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+.rev-exp .thumbbig { width: 140px; height: 140px; border-radius: 8px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; }
+.rev-exp .thumbbig img { width: 100%; height: 100%; object-fit: cover; }
+.rev-exp .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+@media (max-width: 600px) { .rev-exp { grid-template-columns: 1fr; } }
+
+/* KPI tiles & charts */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.kpi .k { font-size: 12px; color: var(--text-2); font-weight: 600; }
+.kpi .v { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.kpi .s { font-size: 12px; color: var(--text-3); }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+@media (max-width: 520px) { .charts { grid-template-columns: 1fr; } }
+.chartbox { position: relative; height: 300px; }
+.cardhead { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.cardhead h2, .cardhead h3 { margin: 0; flex: 1; }
+.bar-inline { height: 8px; border-radius: 4px; background: var(--grid); overflow: hidden; min-width: 60px; }
+.bar-inline > span { display: block; height: 100%; background: var(--s1); border-radius: 0 4px 4px 0; }
+.bar-inline.over > span { background: var(--bad); }
+
+/* notifications */
+.bell { position: relative; }
+.bell .dot { position: absolute; top: 0; right: 0; background: var(--bad); color: #fff; font-size: 10px; border-radius: 99px; padding: 0 5px; line-height: 16px; font-weight: 700; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--surface); border-left: 1px solid var(--border); z-index: 50; display: flex; flex-direction: column; box-shadow: -4px 0 20px rgba(0,0,0,.12); }
+.drawer header { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); gap: 8px; }
+.drawer .list { overflow: auto; flex: 1; }
+.notif { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.notif.unread { background: var(--accent-soft); }
+.notif .msg { white-space: pre-line; font-size: 13px; color: var(--text-2); max-height: 4.5em; overflow: hidden; }
+
+/* modal */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal { background: var(--surface); border-radius: 12px; width: min(560px, 100%); max-height: 92vh; overflow: auto; padding: 20px; border: 1px solid var(--border); }
+
+/* toast & loader */
+#toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 100; display: flex; flex-direction: column; gap: 8px; width: min(480px, calc(100% - 32px)); }
+.toast { padding: 12px 16px; border-radius: 8px; background: #222; color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,.25); font-size: 14px; }
+.toast.bad { background: #b3261e; } .toast.good { background: #1f6f1f; }
+#busy { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; overflow: hidden; }
+#busy::after { content: ""; display: block; height: 100%; width: 40%; background: var(--accent); animation: slide 1s infinite ease-in-out; }
+@keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+@media print {
+  .topbar, .tabs, .noprint, #toast, .totalbar, .offline { display: none !important; }
+  body, main { background: #fff; color: #000; } .card { border: 0; box-shadow: none; padding: 0; }
+}
+@media (max-width: 520px) { main { padding: 12px; } .card { padding: 12px; } }
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="busy" class="hidden"></div>
+  <div id="app"></div>
+  <div id="overlay"></div>
+  <div id="toast"></div>
+<script>
+/* Connects the EASTSIDER app to its Apps Script API (no Google login cookies → works with any number of Google accounts). */
+(function () {
+  var API = (window.CREWTRACK_API || '').trim();
+  function friendly(e) {
+    var m = (e && e.message) || String(e);
+    if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Cannot reach the server. Check your internet connection and try again.';
+    return m;
+  }
+  function mk(s, f) {
+    return new Proxy({}, { get: function (_, n) {
+      if (n === 'withSuccessHandler') return function (h) { return mk(h, f); };
+      if (n === 'withFailureHandler') return function (h) { return mk(s, h); };
+      return function () {
+        var args = Array.prototype.slice.call(arguments);
+        if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(API) && !/^http:\/\/localhost/.test(API)) {
+          f && f(new Error('App not configured: put your Apps Script /exec link in config.js'));
+          return;
+        }
+        fetch(API, { method: 'POST', body: JSON.stringify({ fn: n, args: args }), headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow', credentials: 'omit' })
+          .then(function (r) { if (!r.ok) throw new Error('Server error (' + r.status + '). Try again in a minute.'); return r.text(); })
+          .then(function (t) {
+            var j;
+            try { j = JSON.parse(t); } catch (e) { throw new Error('The server did not answer correctly. Check that the Apps Script deployment has access "Anyone" and that config.js has the right /exec link.'); }
+            if (j.ok) { s && s(j.result); } else { f && f(new Error(j.error)); }
+          })
+          .catch(function (e) { f && f(new Error(friendly(e))); });
+      };
+    } });
+  }
+  window.google = { script: { run: mk(null, null) } };
+})();
+if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+</script>
+<script>
+/* =====================================================================
+   EASTSIDER client – by Eastside Design and Construction
+   ===================================================================== */
+const S = { token: null, boot: null, tab: null, week: null, ts: null, exp: null, review: null, analytics: null, charts: [], notif: null };
+const $ = (sel, root) => (root || document).querySelector(sel);
+const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+const esc = s => String(s === undefined || s === null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = n => '$' + (Number(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const money0 = n => '$' + Math.round(Number(n) || 0).toLocaleString('en-US');
+const hrs = n => (Math.round((Number(n) || 0) * 100) / 100).toLocaleString('en-US', { maximumFractionDigits: 2 });
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const parseYMD = s => { const p = s.split('-'); return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])); };
+const fmtYMD = d => d.toISOString().slice(0, 10);
+const addDays = (s, n) => { const d = parseYMD(s); d.setUTCDate(d.getUTCDate() + n); return fmtYMD(d); };
+const mondayOf = s => { const d = parseYMD(s); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return fmtYMD(d); };
+const pretty = s => { if (!s) return ''; const d = parseYMD(s); return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate(); };
+const weekLabel = ws => pretty(ws) + ' – ' + pretty(addDays(ws, 6)) + ', ' + addDays(ws, 6).slice(0, 4);
+const toMin = t => { const m = /^(\d{1,2}):(\d{2})$/.exec(t || ''); return m ? +m[1] * 60 + +m[2] : NaN; };
+const fmtTime = t => { const m = toMin(t); if (isNaN(m)) return ''; let h = Math.floor(m / 60), mm = m % 60; const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return h + ':' + String(mm).padStart(2, '0') + ' ' + ap; };
+const pill = (s, extra) => `<span class="pill ${esc(s)}">${esc(extra || s)}</span>`;
+const ICON = {
+  bell: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
+  x: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  moon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  ext: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7"/></svg>',
+  install: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>',
+  refresh: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg>'
+};
+const TAB_ICON = {
+  timesheet: '<path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/>',
+  expenses: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
+  myreport: '<path d="M7 3h8l4 4v14H7z"/><path d="M10 12h6M10 16h6"/>',
+  account: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  review: '<path d="m4 12 5 5L20 6"/>',
+  analytics: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  jobs: '<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>',
+  payroll: '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>',
+  tools: '<path d="M14.7 6.3a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3z"/><path d="M5 3l3 3-2 2-3-3"/>',
+  employees: '<circle cx="9" cy="8" r="3.5"/><path d="M2 20c1-3.5 3.5-5 7-5s6 1.5 7 5M16 4a3.5 3.5 0 0 1 0 7M18 15c2 .7 3.3 2.3 4 5"/>',
+  projects: '<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  reports: '<path d="M6 2h9l5 5v15H6z"/><path d="M9 13h8M9 17h5"/>',
+  data: '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
+};
+const tabIcon = k => `<svg class="ti" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TAB_ICON[k] || ''}</svg>`;
+/* Eastside logo mark: house roofline over an E */
+const LOGO = (size) => `<svg class="logo" width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#17375e"/><path d="M12 30 32 13l20 17" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 30h20M22 30v20h20M22 40h15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const PAY = { Personal: 'Paid by me', 'Company Card': 'Company card', Allowance: 'Allowance' };
+const payOf = e => e.PaymentMethod || 'Personal';
+const payPill = e => { const m = payOf(e); return m === 'Personal' ? '' : `<span class="pill ${m === 'Company Card' ? 'card' : 'allow'}">${m === 'Company Card' ? 'Company card' + (e.CardUsed ? ' · ' + esc(e.CardUsed) : '') : 'Allowance'}</span>`; };
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+const sstore = { get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }, del(k) { try { sessionStorage.removeItem(k); } catch (e) {} } };
+
+/* ---------- server calls ---------- */
+let busyCount = 0;
+function busy(on) { busyCount += on ? 1 : -1; $('#busy').classList.toggle('hidden', busyCount <= 0); }
+function call(fn, ...args) {
+  busy(true);
+  return new Promise((resolve, reject) => {
+    google.script.run
+      .withSuccessHandler(r => { busy(false); resolve(r); })
+      .withFailureHandler(err => {
+        busy(false);
+        const msg = (err && err.message) || String(err);
+        if (msg.indexOf('AUTH:') >= 0) { toast(msg.replace(/^.*AUTH:\s*/, ''), 'bad'); doLogout(true); }
+        reject(new Error(msg.replace(/^Error:\s*/, '').replace(/^Exception:\s*/, '')));
+      })[fn](...args);
+  });
+}
+function toast(msg, kind) {
+  const d = document.createElement('div'); d.className = 'toast ' + (kind || ''); d.textContent = msg;
+  const box = $('#toast'); box.appendChild(d); while (box.children.length > 2) box.firstChild.remove();
+  setTimeout(() => d.remove(), kind === 'bad' ? 7000 : 3500);
+}
+const fail = e => toast(e.message || String(e), 'bad');
+
+/* ---------- theme ---------- */
+function applyTheme() { const t = store.get('ct_theme'); if (t) document.documentElement.setAttribute('data-theme', t); }
+function toggleTheme() {
+  const dark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() === '#121211';
+  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark'); store.set('ct_theme', dark ? 'light' : 'dark');
+  if (S.tab === 'analytics' && S.analytics) drawCharts();
+  if (S.tab === 'jobs' && S.job) drawJobCharts();
+}
+
+/* ---------- login ---------- */
+function renderLogin(msg) {
+  $('#app').innerHTML = `
+  <div class="login">
+    <div class="brandhero">${LOGO(56)}<div><div class="wordmark">EASTSIDER</div><div class="tagline">by Eastside Design and Construction</div></div></div>
+    <div class="card">
+      <h2 style="margin-bottom:2px">Sign in</h2>
+      <p class="muted small" style="margin-top:0">Timesheets, expenses & job tracking</p>
+      ${msg ? `<div class="banner bad">${esc(msg)}</div>` : ''}
+      <form id="loginForm" class="grid2" style="grid-template-columns:1fr">
+        <div class="field"><label for="lid">Employee ID</label><input id="lid" autocomplete="username" autocapitalize="none" required></div>
+        <div class="field"><label for="lpw">Password</label><input id="lpw" type="password" autocomplete="current-password" required></div>
+        <button class="btn primary" type="submit">Log in</button>
+      </form>
+      <p class="tiny" style="margin-bottom:0">Forgot your password? Ask your administrator to reset it.</p>
+    </div>
+    ${installCardHtml()}
+  </div>`;
+  $('#loginForm').onsubmit = ev => {
+    ev.preventDefault();
+    call('login', $('#lid').value.trim(), $('#lpw').value).then(r => {
+      S.token = r.token; S.boot = r.boot; store.set('ct_token', r.token); startApp();
+    }).catch(e => renderLogin(e.message));
+  };
+  $('#lid').focus();
+}
+function doLogout(silent) {
+  if (!silent && S.token) call('logout', S.token).catch(() => {});
+  S.token = null; S.boot = null; sstore.del('ct_token'); store.del('ct_token');
+  if (S.notifTimer) clearInterval(S.notifTimer);
+  renderLogin();
+}
+
+/* ---------- shell ---------- */
+function isAdmin() { return S.boot && S.boot.user.role === 'Admin'; }
+function tabsFor() {
+  return isAdmin()
+    ? [['review', 'Review'], ['analytics', 'Analytics'], ['jobs', 'Jobs'], ['payroll', 'Payroll'], ['tools', 'Tools'], ['employees', 'Employees'], ['projects', 'Job Sites'], ['reports', 'Reports'], ['data', 'Data & Backup'], ['settings', 'Settings']]
+    : [['timesheet', 'Timesheet'], ['expenses', 'Expenses'], ['myreport', 'My Report'], ['account', 'Account']];
+}
+function startApp() {
+  S.week = S.boot.currentWeek;
+  $('#app').innerHTML = `
+    <div class="topbar">
+      ${LOGO(34)}
+      <div class="brand"><span class="wordmark sm">EASTSIDER</span><small>${esc(S.boot.user.name)}${isAdmin() ? ' · Admin' : ''}</small></div>
+      <div class="spacer"></div>
+      <button class="iconbtn installbtn ${S.installEvt ? '' : 'hidden'}" title="Install the app" aria-label="Install the app" onclick="installApp()">${ICON.install}</button>
+      <button class="iconbtn" title="Refresh" aria-label="Refresh" onclick="go(S.tab)">${ICON.refresh}</button>
+      <button class="iconbtn bell" title="Notifications" aria-label="Notifications" onclick="openNotifs()">${ICON.bell}<span class="dot ${S.boot.unread ? '' : 'hidden'}" id="bellDot">${S.boot.unread || ''}</span></button>
+      <button class="iconbtn" title="Light / dark" aria-label="Toggle theme" onclick="toggleTheme()">${ICON.moon}</button>
+      <button class="btn sm" onclick="doLogout()">Log out</button>
+    </div>
+    <div id="offline" class="offline hidden">You are offline – changes can't be saved until the connection is back.</div>
+    <nav class="tabs ${isAdmin() ? 'admin' : 'emp'}" id="tabs">${tabsFor().map(([k, l]) => `<button class="tab" data-tab="${k}" onclick="go('${k}')">${tabIcon(k)}<span class="tl">${l}</span><span class="count hidden" id="cnt_${k}"></span></button>`).join('')}</nav>
+    <main id="main"></main>`;
+  const deep = new URLSearchParams(location.search).get('tab');
+  go(deep || sstore.get('ct_tab_' + S.boot.user.role) || tabsFor()[0][0]);
+  updateOnline();
+  if (S.notifTimer) clearInterval(S.notifTimer);
+  S.notifTimer = setInterval(pollNotifs, 60000); pollNotifs();
+}
+function go(tab) {
+  if (!tabsFor().some(t => t[0] === tab)) tab = tabsFor()[0][0];
+  S.tab = tab; sstore.set('ct_tab_' + S.boot.user.role, tab);
+  $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  destroyCharts();
+  const m = $('#main'); m.innerHTML = '<div class="card muted">Loading…</div>';
+  ({ timesheet: viewTimesheet, expenses: viewExpenses, myreport: viewMyReport, account: viewAccount,
+     review: viewReview, analytics: viewAnalytics, jobs: viewJobs, payroll: viewPayroll, tools: viewTools, employees: viewEmployees, projects: viewProjects,
+     reports: viewReports, data: viewData, settings: viewSettings })[tab]();
+  const t = document.querySelector('.tab.active'); if (t && t.scrollIntoView) t.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+function weekNav(onchange) {
+  return `<div class="weeknav">
+    <button class="btn sm" onclick="${onchange}(addDays(S.week,-7))" aria-label="Previous week">‹ Prev</button>
+    <div class="label">${weekLabel(S.week)}</div>
+    <button class="btn sm" onclick="${onchange}(addDays(S.week,7))" aria-label="Next week">Next ›</button>
+    <input type="date" style="width:auto" value="${S.week}" onchange="this.value && ${onchange}(mondayOf(this.value))" aria-label="Pick a week">
+    ${S.week !== S.boot.currentWeek ? `<button class="btn sm ghost" onclick="${onchange}(S.boot.currentWeek)">This week</button>` : ''}
+  </div>`;
+}
+function projectOptions(sel, includeClosed) {
+  const ps = S.boot.projects.filter(p => includeClosed || p.Status !== 'Closed' || p.ProjectID === sel);
+  return `<option value="">— Job site —</option>` + ps.map(p => `<option value="${esc(p.ProjectID)}" ${p.ProjectID === sel ? 'selected' : ''}>${esc(p.Name)}${p.Status === 'Closed' ? ' (closed)' : ''}</option>`).join('');
+}
+function typeOptions(sel) { return `<option value="">— Type —</option>` + S.boot.expenseTypes.map(t => `<option ${t === sel ? 'selected' : ''}>${esc(t)}</option>`).join(''); }
+function timeOptions(sel) {
+  let o = '<option value="">--</option>';
+  for (let m = S.boot.dayStartMin; m <= S.boot.dayEndMin; m += S.boot.slotMin) {
+    const v = String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+    o += `<option value="${v}" ${v === sel ? 'selected' : ''}>${fmtTime(v)}</option>`;
+  }
+  return o;
+}
+function breakOptions(sel) { return [0, 15, 30, 45, 60, 75, 90, 120].map(b => `<option value="${b}" ${+sel === b ? 'selected' : ''}>${b ? b + ' min' : 'No break'}</option>`).join(''); }
+function lineHours(l) { const s = toMin(l.start), e = toMin(l.end); if (isNaN(s) || isNaN(e) || e <= s) return 0; return Math.max(0, (e - s - (+l.breakMin || 0)) / 60); }
+
+/* =====================================================================
+   EMPLOYEE – TIMESHEET
+   ===================================================================== */
+function viewTimesheet(week) {
+  if (week) S.week = week;
+  call('getTimesheet', S.token, S.week, null).then(r => {
+    S.ts = { weekStart: r.weekStart, header: r.header, dirty: false,
+      lines: r.entries.map(e => ({ date: e.Date, projectId: e.ProjectID, start: e.StartTime, end: e.EndTime, breakMin: +e.BreakMinutes || 0, notes: e.Notes })),
+      notes: r.header ? r.header.EmployeeNotes : '' };
+    drawTimesheet();
+  }).catch(fail);
+}
+function tsLocked() { return S.ts.header && S.ts.header.Status === 'Approved'; }
+function drawTimesheet() {
+  const t = S.ts, h = t.header, locked = tsLocked();
+  let banner = '';
+  if (!h) banner = `<div class="banner info">Fill in every day you worked (7:00 AM – 10:00 PM), then press <b>Submit week</b>. You can save a draft at any time.</div>`;
+  else if (h.Status === 'Draft') banner = `<div class="banner info">Draft saved ${esc(h.UpdatedAt)} – not submitted yet.</div>`;
+  else if (h.Status === 'Submitted') banner = `<div class="banner warn">Submitted ${esc(h.SubmittedAt)} – waiting for admin review. You can still correct and re-submit.</div>`;
+  else if (h.Status === 'Approved') banner = `<div class="banner good">Approved by ${esc(h.ReviewedBy)} on ${esc(h.ReviewedAt)}. This week is locked.${h.AdminComment ? '<br>Comment: ' + esc(h.AdminComment) : ''}</div>`;
+  else if (h.Status === 'Rejected') banner = `<div class="banner bad"><b>Rejected</b> by ${esc(h.ReviewedBy)}: ${esc(h.AdminComment)}<br>Please fix and submit again.</div>`;
+  let days = '';
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(t.weekStart, i);
+    const idx = t.lines.map((l, j) => [l, j]).filter(([l]) => l.date === d);
+    const total = idx.reduce((a, [l]) => a + lineHours(l), 0);
+    days += `<div class="day">
+      <div class="dayhead"><b>${DOW[i]} ${pretty(d)}</b><span class="muted small">${total ? hrs(total) + ' h' : ''}</span><span class="spacer"></span>
+        ${locked ? '' : `${i > 0 ? `<button class="btn sm ghost" onclick="tsCopyPrev('${d}')">Copy previous day</button>` : ''}<button class="btn sm" onclick="tsAdd('${d}')">+ Add entry</button>`}</div>
+      <div class="daybody">${idx.length ? idx.map(([l, j]) => tsLineHtml(l, j, locked)).join('') : `<div class="empty">No hours</div>`}</div>
+    </div>`;
+  }
+  const total = t.lines.reduce((a, l) => a + lineHours(l), 0);
+  $('#main').innerHTML = `
+    <div class="card"><div class="cardhead"><h2>My timesheet</h2>${h ? pill(h.Status) : pill('Draft', 'Not started')}</div>${weekNav('viewTimesheet')}</div>
+    ${banner}
+    ${days}
+    <div class="card"><div class="field"><label for="tsNotes">Notes for the admin (optional)</label><textarea id="tsNotes" ${locked ? 'disabled' : ''} oninput="S.ts.notes=this.value;S.ts.dirty=true">${esc(t.notes)}</textarea></div></div>
+    <div class="totalbar">
+      <div><div class="tiny">Week total</div><div class="big" id="tsTotal">${hrs(total)} h</div></div>
+      ${total > 40 ? `<span class="pill Submitted">${hrs(total - 40)} h overtime</span>` : ''}
+      <div class="spacer"></div>
+      ${locked ? '' : `<button class="btn" onclick="tsSave(false)">Save draft</button><button class="btn primary" onclick="tsSave(true)">${h && (h.Status === 'Submitted' || h.Status === 'Rejected') ? 'Re-submit week' : 'Submit week'}</button>`}
+    </div>`;
+}
+function tsLineHtml(l, j, locked) {
+  const dis = locked ? 'disabled' : '';
+  return `<div class="entry" data-j="${j}">
+    <div class="proj"><span class="lbl">Job site</span><select ${dis} onchange="tsSet(${j},'projectId',this.value)" aria-label="Job site">${projectOptions(l.projectId)}</select></div>
+    <div><span class="lbl">Start</span><select ${dis} onchange="tsSet(${j},'start',this.value)" aria-label="Start time">${timeOptions(l.start)}</select></div>
+    <div><span class="lbl">End</span><select ${dis} onchange="tsSet(${j},'end',this.value)" aria-label="End time">${timeOptions(l.end)}</select></div>
+    <div><span class="lbl">Break</span><select ${dis} onchange="tsSet(${j},'breakMin',+this.value)" aria-label="Break">${breakOptions(l.breakMin)}</select></div>
+    <div class="notes"><span class="lbl">Notes</span><input ${dis} value="${esc(l.notes)}" placeholder="What you did (optional)" oninput="tsSet(${j},'notes',this.value,true)" aria-label="Notes"></div>
+    <div class="hrs" id="lh${j}">${hrs(lineHours(l))} h</div>
+    <div>${locked ? '' : `<button class="iconbtn" title="Remove" aria-label="Remove entry" onclick="tsDel(${j})">${ICON.x}</button>`}</div>
+  </div>`;
+}
+function tsSet(j, k, v, quiet) {
+  S.ts.lines[j][k] = v; S.ts.dirty = true;
+  if (quiet) return;
+  if (k === 'start' && v) { const l = S.ts.lines[j]; if (!l.end || toMin(l.end) <= toMin(v)) { const e = Math.min(toMin(v) + 8 * 60 + 30, S.boot.dayEndMin); l.end = String(Math.floor(e / 60)).padStart(2, '0') + ':' + String(e % 60).padStart(2, '0'); } }
+  drawTimesheet();
+}
+function tsAdd(d) {
+  const same = S.ts.lines.filter(l => l.date === d);
+  const lastProj = (S.ts.lines[S.ts.lines.length - 1] || {}).projectId || '';
+  let start = '07:00', end = '15:30', br = 30;
+  if (same.length) {
+    const last = same.reduce((a, l) => toMin(l.end) > toMin(a.end) ? l : a, same[0]);
+    const s = toMin(last.end); if (isNaN(s) || s >= S.boot.dayEndMin) return toast('This day is already filled until 10:00 PM.', 'bad');
+    const e = Math.min(s + 120, S.boot.dayEndMin);
+    const f = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+    start = f(s); end = f(e); br = 0;
+  }
+  S.ts.lines.push({ date: d, projectId: lastProj, start, end, breakMin: br, notes: '' });
+  S.ts.dirty = true; drawTimesheet();
+}
+function tsCopyPrev(d) {
+  const prev = S.ts.lines.filter(l => l.date === addDays(d, -1));
+  if (!prev.length) return toast('Previous day has no entries to copy.');
+  S.ts.lines = S.ts.lines.filter(l => l.date !== d).concat(prev.map(l => Object.assign({}, l, { date: d })));
+  S.ts.dirty = true; drawTimesheet();
+}
+function tsDel(j) { S.ts.lines.splice(j, 1); S.ts.dirty = true; drawTimesheet(); }
+function tsSave(submit) {
+  const lines = S.ts.lines;
+  if (submit) {
+    const total = lines.reduce((a, l) => a + lineHours(l), 0);
+    if (!confirm(`Submit ${hrs(total)} hours for the week of ${weekLabel(S.ts.weekStart)}?`)) return;
+  }
+  call('saveTimesheet', S.token, { weekStart: S.ts.weekStart, entries: lines, notes: S.ts.notes || '' }, !!submit).then(r => {
+    toast(submit ? 'Week submitted. The admin has been notified.' : 'Draft saved.', 'good');
+    S.ts.header = r.header; S.ts.dirty = false; drawTimesheet();
+  }).catch(fail);
+}
+
+/* =====================================================================
+   EMPLOYEE – EXPENSES
+   ===================================================================== */
+function viewExpenses(week) {
+  if (week) S.week = week;
+  S.exp = S.exp || { drafts: [], mode: 'Personal' };
+  call('getMyExpenses', S.token, S.week).then(list => { S.exp.list = list; drawExpenses(); }).catch(fail);
+}
+function expModeSet(m) {
+  S.exp.mode = m; S.exp.keep = { date: $('#exDate').value, projectId: $('#exProj').value, amount: $('#exAmt').value, supplier: $('#exSup').value, description: $('#exDesc').value };
+  drawExpenses();
+}
+function drawExpenses() {
+  const x = S.exp, we = addDays(S.week, 6), maxDate = we < S.boot.today ? we : S.boot.today;
+  const defDate = S.boot.today >= S.week && S.boot.today <= we ? S.boot.today : S.week;
+  const allow = S.boot.myAllowances || [];
+  if (x.mode === 'Allowance' && !allow.length) x.mode = 'Personal';
+  const mode = x.mode, k = x.keep || {}; x.keep = null;
+  const dTotal = x.drafts.reduce((a, d) => a + d.amount, 0);
+  const dPay = x.drafts.filter(d => d.mode !== 'Company Card').reduce((a, d) => a + d.amount, 0);
+  const lTotal = x.list.reduce((a, d) => a + (+d.Amount || 0), 0);
+  const modes = [['Personal', 'Paid by me', 'Reimburse me'], ['Company Card', 'Company card', 'Record only – not paid back']].concat(allow.length ? [['Allowance', 'Allowance', 'No receipt needed']] : []);
+  const typeSel = mode === 'Allowance'
+    ? `<select id="exType" required>${allow.map(t => `<option>${esc(t)}</option>`).join('')}</select>`
+    : `<select id="exType" required>${typeOptions('')}</select>`;
+  $('#main').innerHTML = `
+    <div class="card"><div class="cardhead"><h2>My expenses</h2></div>${weekNav('viewExpenses')}</div>
+    <div class="card">
+      <h3>Add an expense</h3>
+      <div class="seg" role="radiogroup" aria-label="How was it paid?">${modes.map(([m, l, sub]) => `<button type="button" role="radio" aria-checked="${mode === m}" class="${mode === m ? 'on' : ''}" onclick="expModeSet('${m}')"><b>${l}</b><span>${sub}</span></button>`).join('')}</div>
+      ${mode === 'Company Card' ? `<div class="banner info small">Company card purchases are <b>recorded for job costing</b> but are <b>not paid back</b> to you. Please still attach the receipt.</div>` : ''}
+      ${mode === 'Allowance' ? `<div class="banner info small">Allowance claims don't need a receipt picture.</div>` : ''}
+      <form id="expForm" class="grid2" autocomplete="off">
+        <div class="field"><label for="exDate">Date</label><input type="date" id="exDate" value="${k.date || (x.lastDate && x.lastDate >= S.week && x.lastDate <= we ? x.lastDate : defDate)}" min="${S.week}" max="${maxDate}" required></div>
+        <div class="field"><label for="exProj">Job site</label><select id="exProj" required>${projectOptions(k.projectId || x.lastProj || '')}</select></div>
+        <div class="field"><label for="exType">${mode === 'Allowance' ? 'Allowance' : 'Expense type'}</label>${typeSel}</div>
+        <div class="field"><label for="exAmt">Amount ($)</label><input id="exAmt" type="number" inputmode="decimal" step="0.01" min="0.01" placeholder="0.00" value="${esc(k.amount || (mode === 'Allowance' && S.boot.allowanceAmount ? S.boot.allowanceAmount : ''))}" required></div>
+        ${mode === 'Company Card' && S.boot.companyCards.length ? `<div class="field"><label for="exCard">Which card?</label><select id="exCard" required><option value="">— Card —</option>${S.boot.companyCards.map(c => `<option>${esc(c)}</option>`).join('')}</select></div>` : ''}
+        <div class="field"><label for="exSup">Supplier / store${mode === 'Allowance' ? ' (optional)' : ''}</label><input id="exSup" value="${esc(k.supplier || '')}" placeholder="${mode === 'Allowance' ? 'e.g. Shell' : 'e.g. Home Depot'}" ${mode === 'Allowance' ? '' : 'required'} list="supList"></div>
+        <div class="field"><label for="exDesc">${mode === 'Allowance' ? 'Notes (optional)' : 'Item / description'}</label><input id="exDesc" value="${esc(k.description || '')}" placeholder="${mode === 'Allowance' ? 'e.g. trips to Maple St' : 'e.g. DeWalt 20V drill, lunch for crew'}"></div>
+        <div class="field" style="grid-column:1/-1">
+          <label>Receipt picture${mode === 'Allowance' ? ' (optional)' : ''}</label>
+          <label class="filedrop" id="exDrop" for="exFile">📷 Tap to take a photo or choose a file (photo or PDF)</label>
+          <input type="file" id="exFile" accept="image/*,application/pdf" class="hidden">
+        </div>
+        <div style="grid-column:1/-1" class="row"><button class="btn" type="submit">+ Add to list</button><span class="tiny">Add all of this week's expenses, then submit them together.</span></div>
+      </form>
+      <datalist id="supList">${[...new Set(x.list.map(e => e.Supplier).concat(x.drafts.map(d => d.supplier)))].filter(Boolean).map(s => `<option value="${esc(s)}">`).join('')}</datalist>
+    </div>
+    ${x.drafts.length ? `<div class="card">
+      <div class="cardhead"><h3>Ready to submit (${x.drafts.length})</h3><b class="num">${money(dTotal)}</b></div>
+      <div class="exp-list">${x.drafts.map((d, i) => `<div class="exp">
+        <div class="thumb">${d.preview ? `<img src="${d.preview}" alt="Receipt">` : d.file ? 'PDF' : 'No receipt'}</div>
+        <div><b>${esc(d.supplier || d.type)}</b> · ${esc(d.type)} ${payPill({ PaymentMethod: d.mode, CardUsed: d.card })}<div class="small muted">${pretty(d.date)} · ${esc(projName(d.projectId))}${d.description ? ' · ' + esc(d.description) : ''}</div></div>
+        <div><div class="amt">${money(d.amount)}</div><button class="btn sm ghost" onclick="S.exp.drafts.splice(${i},1);drawExpenses()">Remove</button></div>
+      </div>`).join('')}</div>
+      <div class="row" style="margin-top:12px"><button class="btn primary" id="exSubmit" onclick="expSubmit()">Submit ${x.drafts.length} expense${x.drafts.length > 1 ? 's' : ''} (${money(dTotal)})</button><span class="tiny" id="exProg">${dPay !== dTotal ? 'To be paid back: ' + money(dPay) : ''}</span></div>
+    </div>` : ''}
+    <div class="card">
+      <div class="cardhead"><h3>Submitted this week</h3><b class="num">${money(lTotal)}</b></div>
+      ${x.list.length ? `<div class="exp-list">${x.list.map(e => `<div class="exp">
+        <div class="thumb">${e.ReceiptFileID ? '🧾' : '—'}</div>
+        <div><b>${esc(e.Supplier)}</b>${e.Supplier !== e.ExpenseType ? ' · ' + esc(e.ExpenseType) : ''} ${e.IsTool === 'Yes' ? pill('tool', 'Tool / equipment') : ''} ${payPill(e)}
+          <div class="small muted">${pretty(e.Date)} · ${esc(e.ProjectName)}${e.Description ? ' · ' + esc(e.Description) : ''}</div>
+          ${e.AdminComment ? `<div class="small" style="margin-top:4px">Admin: ${esc(e.AdminComment)}</div>` : ''}
+          ${e.PayrollRunID ? `<div class="tiny">Paid in payroll ${esc(e.PayrollRunID)}</div>` : ''}</div>
+        <div style="text-align:right"><div class="amt">${money(e.Amount)}</div>${pill(e.Status)}
+          ${e.Status !== 'Approved' ? `<div><button class="btn sm ghost" onclick="expDelete('${e.ExpenseID}')">Delete</button></div>` : ''}</div>
+      </div>`).join('')}</div>` : '<p class="muted">Nothing submitted for this week yet.</p>'}
+    </div>`;
+  $('#exFile').onchange = expPickFile;
+  $('#expForm').onsubmit = expAdd;
+  if (x.pendingFile) markDrop();
+}
+function projName(id) { const p = S.boot.projects.find(p => p.ProjectID === id); return p ? p.Name : ''; }
+function markDrop() { const d = $('#exDrop'); if (!d) return; d.classList.add('has'); d.textContent = '✓ ' + S.exp.pendingFile.name + ' (tap to change)'; }
+async function expPickFile(ev) {
+  const f = ev.target.files[0]; if (!f) return;
+  if (!/^image\//.test(f.type) && f.type !== 'application/pdf' && !/\.(heic|heif)$/i.test(f.name)) return toast('Please choose a photo or PDF.', 'bad');
+  try { S.exp.pendingFile = await prepFile(f); markDrop(); } catch (e) { fail(e); }
+}
+function readAsDataURL(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); }); }
+async function prepFile(file) {
+  const base = (file.name || 'receipt').replace(/\.[^.]+$/, '');
+  if (/^image\/(jpeg|png|webp|gif|bmp)/.test(file.type)) {
+    try {
+      const url = await readAsDataURL(file);
+      const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+      const max = 1800, sc = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      const out = c.toDataURL('image/jpeg', 0.82);
+      return { name: base + '.jpg', mimeType: 'image/jpeg', data: out.split(',')[1], preview: out };
+    } catch (e) { /* fall back to raw upload */ }
+  }
+  if (file.size > 15 * 1024 * 1024) throw new Error('File is larger than 15 MB.');
+  const url = await readAsDataURL(file);
+  const mime = file.type || (/\.(heic|heif)$/i.test(file.name) ? 'image/heic' : 'application/octet-stream');
+  return { name: file.name || 'receipt', mimeType: mime, data: url.split(',')[1], preview: /^image\/(jpeg|png|webp|gif)/.test(mime) ? url : '' };
+}
+function expAdd(ev) {
+  ev.preventDefault();
+  const mode = S.exp.mode || 'Personal';
+  const d = { mode, date: $('#exDate').value, projectId: $('#exProj').value, type: $('#exType').value, amount: Math.round(parseFloat($('#exAmt').value) * 100) / 100,
+    supplier: $('#exSup').value.trim(), description: $('#exDesc').value.trim(), card: $('#exCard') ? $('#exCard').value : '' };
+  if (!d.date || !d.projectId || !d.type || !(d.amount > 0) || (!d.supplier && mode !== 'Allowance')) return toast('Fill in date, job site, type, amount and supplier.', 'bad');
+  if (mode === 'Company Card' && $('#exCard') && !d.card) return toast('Choose which company card was used.', 'bad');
+  if (!S.exp.pendingFile && mode !== 'Allowance') return toast('Attach a picture of the receipt.', 'bad');
+  Object.assign(d, { file: S.exp.pendingFile || null, preview: S.exp.pendingFile ? S.exp.pendingFile.preview : '' });
+  S.exp.drafts.push(d); S.exp.pendingFile = null; S.exp.lastProj = d.projectId; S.exp.lastDate = d.date;
+  drawExpenses(); toast('Added. Add more or press Submit.');
+}
+async function expSubmit() {
+  const drafts = S.exp.drafts; if (!drafts.length) return;
+  $('#exSubmit').disabled = true;
+  try {
+    for (let i = 0; i < drafts.length; i++) {
+      if (drafts[i].fileId || !drafts[i].file) continue;
+      $('#exProg').textContent = `Uploading receipt ${i + 1} of ${drafts.length}…`;
+      const f = drafts[i].file;
+      const up = await call('uploadReceipt', S.token, mondayOf(drafts[i].date), { name: f.name, mimeType: f.mimeType, data: f.data });
+      drafts[i].fileId = up.fileId;
+    }
+    $('#exProg').textContent = 'Saving…';
+    const r = await call('submitExpenses', S.token, { items: drafts.map(d => ({ mode: d.mode, card: d.card, date: d.date, projectId: d.projectId, type: d.type, amount: d.amount, supplier: d.supplier, description: d.description, fileId: d.fileId || '' })) });
+    S.exp.drafts = [];
+    toast(`${r.count} expense(s) submitted (${money(r.total)}${r.payable !== r.total ? ', ' + money(r.payable) + ' to be paid back' : ''}).` + (r.tools ? ` ${r.tools} logged as tool/equipment purchase.` : ''), 'good');
+    viewExpenses();
+  } catch (e) { fail(e); const b = $('#exSubmit'); if (b) b.disabled = false; $('#exProg').textContent = ''; }
+}
+function expDelete(id) {
+  if (!confirm('Delete this expense?')) return;
+  call('deleteMyExpense', S.token, id).then(() => { toast('Deleted.'); viewExpenses(); }).catch(fail);
+}
+
+/* =====================================================================
+   REPORT (shared by employee "My Report" and admin "Reports")
+   ===================================================================== */
+function defaultRange() { const to = S.boot.today; return { from: addDays(mondayOf(to), -28), to }; }
+function viewMyReport() {
+  const r = S.myRange || defaultRange();
+  $('#main').innerHTML = `<div class="card noprint"><div class="cardhead"><h2>My report</h2><button class="btn sm" onclick="window.print()">Print / save PDF</button></div>
+    <div class="row"><div class="field"><label for="rFrom">From</label><input type="date" id="rFrom" value="${r.from}"></div>
+    <div class="field"><label for="rTo">To</label><input type="date" id="rTo" value="${r.to}"></div>
+    <button class="btn primary" onclick="S.myRange={from:$('#rFrom').value,to:$('#rTo').value};viewMyReport()">Show</button></div></div>
+    <div id="reportOut"><div class="card muted">Loading…</div></div>`;
+  call('getMyReport', S.token, r.from, r.to).then(rep => { $('#reportOut').innerHTML = reportHtml(rep); }).catch(fail);
+}
+function reportHtml(r) {
+  const T = r.totals;
+  const hp = Object.entries(r.hoursByProject).sort((a, b) => b[1] - a[1]);
+  const byTs = {}; r.entries.forEach(e => (byTs[e.SubmissionID] = byTs[e.SubmissionID] || []).push(e));
+  return `
+  <div class="card"><h2>${esc(r.employee.name)} <span class="muted small">(${esc(r.employee.id)})</span></h2><div class="muted small">${esc(r.company)} · ${pretty(r.from)} – ${pretty(r.to)}, ${r.to.slice(0, 4)}</div></div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">Hours approved</div><div class="v">${hrs(T.hoursApproved)}</div><div class="s">${hrs(T.hoursSubmitted)} submitted</div></div>
+    <div class="kpi"><div class="k">Hours awaiting review</div><div class="v">${hrs(T.hoursPending)}</div><div class="s">${hrs(T.hoursRejected)} rejected</div></div>
+    <div class="kpi"><div class="k">Expenses approved</div><div class="v">${money(T.expApproved)}</div><div class="s">${money(T.expSubmitted)} submitted</div></div>
+    <div class="kpi"><div class="k">Expenses awaiting review</div><div class="v">${money(T.expPending)}</div><div class="s">${money(T.expRejected)} rejected</div></div>
+    <div class="kpi"><div class="k">To be paid back (approved)</div><div class="v">${money(T.expPayableApproved || 0)}</div><div class="s">incl. ${money(T.expAllowance || 0)} allowances</div></div>
+    <div class="kpi"><div class="k">Company card (record only)</div><div class="v">${money(T.expCompanyCard || 0)}</div><div class="s">not paid back</div></div>
+  </div>
+  ${hp.length ? `<div class="card"><h3>Approved hours by job site</h3><div class="tablewrap"><table><tr><th>Job site</th><th class="num">Hours</th></tr>${hp.map(([p, h]) => `<tr><td>${esc(p)}</td><td class="num">${hrs(h)}</td></tr>`).join('')}</table></div></div>` : ''}
+  <div class="card"><h3>Timesheets</h3>
+    ${r.timesheets.length ? `<div class="tablewrap"><table><tr><th>Week</th><th class="num">Hours</th><th>Status</th><th>Reviewed</th><th>Comment</th></tr>
+    ${r.timesheets.map(t => `<tr class="click" onclick="const n=this.nextElementSibling;n.classList.toggle('hidden')"><td>${weekLabel(t.WeekStart)} ▾</td><td class="num">${hrs(t.TotalHours)}</td><td>${pill(t.Status)}</td><td class="small">${esc(t.ReviewedBy)} ${esc(t.ReviewedAt)}</td><td class="small">${esc(t.AdminComment)}</td></tr>
+      <tr class="hidden"><td colspan="5"><table>${(byTs[t.SubmissionID] || []).sort((a, b) => (a.Date + a.StartTime).localeCompare(b.Date + b.StartTime)).map(e => `<tr><td>${DOW[(parseYMD(e.Date).getUTCDay() + 6) % 7]} ${pretty(e.Date)}</td><td>${esc(e.ProjectName)}</td><td>${fmtTime(e.StartTime)} – ${fmtTime(e.EndTime)}</td><td class="small">${e.BreakMinutes ? e.BreakMinutes + ' min break' : ''}</td><td class="num">${hrs(e.Hours)} h</td><td class="small muted">${esc(e.Notes)}</td></tr>`).join('') || '<tr><td class="muted">No entries in range</td></tr>'}</table></td></tr>`).join('')}
+    </table></div>` : '<p class="muted">No timesheets in this period.</p>'}
+  </div>
+  <div class="card"><h3>Expenses</h3>
+    ${r.expenses.length ? `<div class="tablewrap"><table><tr><th>Date</th><th>Job site</th><th>Type</th><th>Supplier</th><th>Item</th><th>Paid with</th><th class="num">Amount</th><th>Status</th><th>Comment</th></tr>
+    ${r.expenses.map(e => `<tr><td>${pretty(e.Date)}</td><td>${esc(e.ProjectName)}</td><td>${esc(e.ExpenseType)}</td><td>${esc(e.Supplier)}</td><td class="small">${esc(e.Description)}</td><td class="small">${PAY[payOf(e)]}</td><td class="num">${money(e.Amount)}</td><td>${pill(e.Status)}</td><td class="small">${esc(e.AdminComment)}</td></tr>`).join('')}
+    </table></div>` : '<p class="muted">No expenses in this period.</p>'}
+  </div>`;
+}
+
+/* ---------- account ---------- */
+function viewAccount() {
+  $('#main').innerHTML = `<div class="card" style="max-width:480px"><h2>Change password</h2>${pwFormHtml()}</div>${installCardHtml(true)}
+    <div class="card" style="max-width:480px"><h3>About</h3><div class="row" style="align-items:center">${LOGO(40)}<div><b>EASTSIDER</b><div class="tiny">by Eastside Design and Construction</div></div></div></div>`;
+  bindPwForm();
+}
+function pwFormHtml() {
+  return `<form id="pwForm" class="grid2" style="grid-template-columns:1fr">
+    <div class="field"><label for="pwOld">Current password</label><input type="password" id="pwOld" autocomplete="current-password" required></div>
+    <div class="field"><label for="pwNew">New password (min 6 characters)</label><input type="password" id="pwNew" autocomplete="new-password" minlength="6" required></div>
+    <div class="field"><label for="pwNew2">Repeat new password</label><input type="password" id="pwNew2" autocomplete="new-password" required></div>
+    <button class="btn primary" type="submit">Update password</button></form>`;
+}
+function bindPwForm() {
+  $('#pwForm').onsubmit = ev => {
+    ev.preventDefault();
+    if ($('#pwNew').value !== $('#pwNew2').value) return toast('New passwords do not match.', 'bad');
+    call('changePassword', S.token, $('#pwOld').value, $('#pwNew').value).then(() => { toast('Password updated.', 'good'); $('#pwForm').reset(); }).catch(fail);
+  };
+}
+
+/* =====================================================================
+   ADMIN – NOTIFICATIONS
+   ===================================================================== */
+function pollNotifs() {
+  if (!S.token) return;
+  call('getNotifications', S.token).then(r => { S.notif = r; updateBell(); }).catch(() => {});
+  if (isAdmin() && S.tab !== 'review') call('adminListSubmissions', S.token, { status: 'Submitted' }).then(setReviewCount).catch(() => {});
+}
+function setReviewCount(r) {
+  const n = r.timesheets.length + r.expenseGroups.reduce((a, g) => a + (g.pending ? 1 : 0), 0);
+  const c = $('#cnt_review'); if (c) { c.textContent = n; c.classList.toggle('hidden', !n); }
+}
+function updateBell() {
+  const d = $('#bellDot'); if (!d || !S.notif) return; d.textContent = S.notif.unread; d.classList.toggle('hidden', !S.notif.unread);
+  try { if (navigator.setAppBadge) S.notif.unread ? navigator.setAppBadge(S.notif.unread) : navigator.clearAppBadge(); } catch (e) {}
+}
+function openNotifs() {
+  const draw = () => {
+    const items = (S.notif && S.notif.items) || [];
+    $('#overlay').innerHTML = `<div class="modal-bg" onclick="if(event.target===this)closeOverlay()" style="background:rgba(0,0,0,.25);justify-content:flex-end;padding:0"><div class="drawer">
+      <header><h3 style="margin:0;flex:1">Notifications</h3><button class="btn sm" onclick="markAllRead()">Mark all read</button><button class="iconbtn" aria-label="Close" onclick="closeOverlay()">${ICON.x}</button></header>
+      <div class="list">${items.length ? items.map(n => `<div class="notif ${n.Read === 'Yes' ? '' : 'unread'}" onclick="openNotif('${n.NotificationID}','${esc(n.RefID)}','${esc(n.Type)}')">
+        <div><b>${esc(n.Title)}</b></div><div class="tiny">${esc(n.CreatedAt)}</div><div class="msg">${esc(n.Message)}</div></div>`).join('') : '<p class="muted" style="padding:16px">No notifications yet.</p>'}</div>
+      <div class="tiny" style="padding:10px 16px;border-top:1px solid var(--border)">If a notification stays unread, you'll also get a reminder email.</div>
+    </div></div>`;
+  };
+  draw();
+  call('getNotifications', S.token).then(r => { S.notif = r; updateBell(); draw(); }).catch(fail);
+}
+function closeOverlay() { $('#overlay').innerHTML = ''; }
+function markAllRead() { call('markNotificationsRead', S.token, 'all').then(r => { S.notif = r; updateBell(); openNotifs(); }).catch(fail); }
+function openNotif(id, ref, type) {
+  call('markNotificationsRead', S.token, [id]).then(r => { S.notif = r; updateBell(); }).catch(() => {});
+  closeOverlay();
+  if (isAdmin()) { S.reviewOpen = ref; S.reviewFilter = { status: 'All', weekStart: '', employeeId: '' }; return go('review'); }
+  const m = /^TS-(\d{4})(\d{2})(\d{2})/.exec(ref || ''), w = /^EXW-(\d{4}-\d{2}-\d{2})/.exec(ref || '');
+  if (m) { S.week = `${m[1]}-${m[2]}-${m[3]}`; S.tab = 'timesheet'; return goKeepWeek('timesheet'); }
+  if (w) { S.week = w[1]; return goKeepWeek('expenses'); }
+  go('myreport');
+}
+function goKeepWeek(tab) { go(tab); }
+
+/* =====================================================================
+   ADMIN – REVIEW
+   ===================================================================== */
+function viewReview() {
+  const f = S.reviewFilter = S.reviewFilter || { status: 'Submitted', weekStart: '', employeeId: '' };
+  $('#main').innerHTML = `
+    <div class="card"><div class="row">
+      <div class="field"><label for="rvStatus">Status</label><select id="rvStatus">${['Submitted', 'Approved', 'Rejected', 'All'].map(s => `<option value="${s}" ${f.status === s ? 'selected' : ''}>${s === 'Submitted' ? 'Waiting for review' : s}</option>`).join('')}</select></div>
+      <div class="field"><label for="rvWeek">Week (any day)</label><input type="date" id="rvWeek" value="${f.weekStart}"></div>
+      <div class="field"><label for="rvEmp">Employee</label><select id="rvEmp"><option value="">All employees</option>${S.boot.employees.map(e => `<option value="${esc(e.EmployeeID)}" ${f.employeeId === e.EmployeeID ? 'selected' : ''}>${esc(e.Name)}</option>`).join('')}</select></div>
+      <button class="btn primary" onclick="S.reviewFilter={status:$('#rvStatus').value,weekStart:$('#rvWeek').value,employeeId:$('#rvEmp').value};viewReview()">Apply</button>
+      ${f.weekStart || f.employeeId || f.status !== 'Submitted' ? `<button class="btn ghost" onclick="S.reviewFilter=null;viewReview()">Reset</button>` : ''}
+    </div></div>
+    <div class="review-grid"><div class="card" style="padding:0" id="rvQueue"><div class="muted" style="padding:16px">Loading…</div></div><div id="rvDetail"><div class="card muted">Select a submission on the left to review it.</div></div></div>`;
+  call('adminListSubmissions', S.token, f).then(r => {
+    S.review = r; drawQueue();
+    if (f.status === 'Submitted' && !f.weekStart && !f.employeeId) setReviewCount(r);
+    const ref = S.reviewOpen; S.reviewOpen = null;
+    if (ref) {
+      if (ref.indexOf('TS-') === 0) openTs(ref);
+      else { const g = r.expenseGroups.find(g => (g.reportIds || []).indexOf(ref) >= 0); if (g) openExpGroup(g.EmployeeID, g.WeekStart); }
+    }
+  }).catch(fail);
+}
+function drawQueue() {
+  const r = S.review;
+  $('#rvQueue').innerHTML = `
+    <div style="padding:12px 12px 6px"><h3 style="margin:0">Timesheets <span class="muted">(${r.timesheets.length})</span></h3></div>
+    ${r.timesheets.map(t => `<div class="qitem" data-id="${esc(t.SubmissionID)}" onclick="openTs('${esc(t.SubmissionID)}')">
+      <div class="grow"><div class="t">${esc(t.EmployeeName)}</div><div class="tiny">${weekLabel(t.WeekStart)} · sent ${esc(t.SubmittedAt)}</div></div>
+      <div class="num"><b>${hrs(t.TotalHours)} h</b><div>${pill(t.Status)}</div></div></div>`).join('') || '<div class="tiny" style="padding:0 12px 10px">None</div>'}
+    <div style="padding:12px 12px 6px;border-top:1px solid var(--border)"><h3 style="margin:0">Expenses <span class="muted">(${r.expenseGroups.length})</span></h3></div>
+    ${r.expenseGroups.map(g => `<div class="qitem" data-id="${esc(g.key)}" onclick="openExpGroup('${esc(g.EmployeeID)}','${g.WeekStart}')">
+      <div class="grow"><div class="t">${esc(g.EmployeeName)}</div><div class="tiny">${weekLabel(g.WeekStart)} · ${g.count} item${g.count > 1 ? 's' : ''}${g.tools ? ' · ' + g.tools + ' tool' : ''}</div></div>
+      <div class="num"><b>${money(g.total)}</b><div>${g.pending ? pill('Submitted', g.pending + ' to review') : g.rejected && !g.approved ? pill('Rejected') : pill('Approved', g.rejected ? 'Done' : 'Approved')}</div></div></div>`).join('') || '<div class="tiny" style="padding:0 12px 12px">None</div>'}`;
+}
+function selQueue(id) { $$('.qitem').forEach(q => q.classList.toggle('sel', q.dataset.id === id)); }
+
+/* ---- timesheet review ---- */
+function openTs(id) {
+  selQueue(id);
+  call('adminGetTimesheet', S.token, id).then(r => {
+    S.rts = { id, header: r.header, weekStart: r.weekStart, edited: false,
+      lines: r.entries.map(e => ({ date: e.Date, projectId: e.ProjectID, start: e.StartTime, end: e.EndTime, breakMin: +e.BreakMinutes || 0, notes: e.Notes })) };
+    drawRts();
+    if (window.innerWidth < 960) $('#rvDetail').scrollIntoView({ behavior: 'smooth' });
+  }).catch(fail);
+}
+function drawRts() {
+  const t = S.rts, h = t.header, total = t.lines.reduce((a, l) => a + lineHours(l), 0);
+  const days = Array.from({ length: 7 }, (_, i) => addDays(t.weekStart, i));
+  const perDay = days.map(d => t.lines.filter(l => l.date === d).reduce((a, l) => a + lineHours(l), 0));
+  $('#rvDetail').innerHTML = `<div class="card">
+    <div class="cardhead"><h2>${esc(h.EmployeeName)} – timesheet</h2>${pill(h.Status)}</div>
+    <div class="muted small" style="margin-bottom:10px">${weekLabel(t.weekStart)} · submitted ${esc(h.SubmittedAt)}${h.ReviewedAt ? ' · reviewed by ' + esc(h.ReviewedBy) + ' ' + esc(h.ReviewedAt) : ''}</div>
+    ${h.EmployeeNotes ? `<div class="banner info"><b>Employee note:</b> ${esc(h.EmployeeNotes)}</div>` : ''}
+    ${h.AdminComment ? `<div class="banner ${h.Status === 'Rejected' ? 'bad' : 'good'}">Admin comment: ${esc(h.AdminComment)}</div>` : ''}
+    <div class="kpis" style="grid-template-columns:repeat(7,minmax(70px,1fr));overflow-x:auto">${days.map((d, i) => `<div class="kpi" style="padding:8px"><div class="k">${DOW[i]} ${pretty(d)}</div><div class="v" style="font-size:18px">${hrs(perDay[i])}</div></div>`).join('')}</div>
+    <div class="tablewrap edit-grid"><table><tr><th>Day</th><th>Job site</th><th>Start</th><th>End</th><th>Break</th><th>Notes</th><th class="num">Hours</th><th></th></tr>
+    ${t.lines.map((l, j) => `<tr>
+      <td><select onchange="rtsSet(${j},'date',this.value)">${days.map((d, i) => `<option value="${d}" ${d === l.date ? 'selected' : ''}>${DOW[i]} ${pretty(d)}</option>`).join('')}</select></td>
+      <td><select onchange="rtsSet(${j},'projectId',this.value)">${projectOptions(l.projectId, true)}</select></td>
+      <td><select onchange="rtsSet(${j},'start',this.value)">${timeOptions(l.start)}</select></td>
+      <td><select onchange="rtsSet(${j},'end',this.value)">${timeOptions(l.end)}</select></td>
+      <td><select onchange="rtsSet(${j},'breakMin',+this.value)">${breakOptions(l.breakMin)}</select></td>
+      <td><input value="${esc(l.notes)}" oninput="S.rts.lines[${j}].notes=this.value;S.rts.edited=true"></td>
+      <td class="num"><b>${hrs(lineHours(l))}</b></td>
+      <td><button class="iconbtn" aria-label="Remove line" onclick="S.rts.lines.splice(${j},1);S.rts.edited=true;drawRts()">${ICON.x}</button></td></tr>`).join('')}
+    <tfoot><tr><td colspan="6">Week total ${total > 40 ? `<span class="pill Submitted">${hrs(total - 40)} h overtime</span>` : ''}</td><td class="num">${hrs(total)}</td><td></td></tr></tfoot></table></div>
+    <div class="row" style="margin:10px 0"><button class="btn sm" onclick="S.rts.lines.push({date:S.rts.weekStart,projectId:'',start:'07:00',end:'15:30',breakMin:30,notes:''});S.rts.edited=true;drawRts()">+ Add line</button>
+      ${t.edited ? '<span class="pill Submitted">Edited – changes will be saved with your decision</span>' : ''}</div>
+    <div class="field"><label for="rtsComment">Comment to employee ${h.Status === 'Submitted' ? '(required if rejecting)' : ''}</label><textarea id="rtsComment" placeholder="Optional for approval"></textarea></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn good" onclick="rtsDecide('approve')">${t.edited ? 'Save edits & approve' : 'Approve'}</button>
+      <button class="btn bad" onclick="rtsDecide('reject')">Reject</button>
+      ${t.edited ? `<button class="btn" onclick="rtsDecide('save')">Save edits only</button><button class="btn ghost" onclick="openTs('${esc(t.id)}')">Undo edits</button>` : ''}
+      <span class="spacer"></span><button class="btn ghost danger" onclick="adminDel('timesheet','${esc(t.id)}','this timesheet',()=>viewReview())">Delete</button>
+    </div></div>`;
+}
+function rtsSet(j, k, v) { S.rts.lines[j][k] = v; S.rts.edited = true; drawRts(); }
+function rtsDecide(action) {
+  const c = $('#rtsComment').value.trim();
+  if (action === 'reject' && !c) return toast('Write a reason so the employee knows what to fix.', 'bad');
+  call('adminReviewTimesheet', S.token, S.rts.id, action, c, S.rts.edited ? S.rts.lines : null).then(() => {
+    toast(action === 'approve' ? 'Timesheet approved.' : action === 'reject' ? 'Timesheet rejected – employee notified.' : 'Edits saved.', 'good');
+    const id = S.rts.id; viewReviewKeep(() => openTs(id));
+  }).catch(fail);
+}
+function viewReviewKeep(after) {
+  call('adminListSubmissions', S.token, S.reviewFilter).then(r => { S.review = r; drawQueue(); if (after) after(); }).catch(fail);
+  call('adminListSubmissions', S.token, { status: 'Submitted' }).then(setReviewCount).catch(() => {});
+}
+
+/* ---- expense review ---- */
+function thumbUrl(id) { return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w400'; }
+function openExpGroup(empId, ws) {
+  selQueue(empId + '|' + ws);
+  call('adminGetExpenseGroup', S.token, empId, ws).then(list => { S.rex = { empId, ws, list }; drawRex(); if (window.innerWidth < 960) $('#rvDetail').scrollIntoView({ behavior: 'smooth' }); }).catch(fail);
+}
+function drawRex() {
+  const x = S.rex, pend = x.list.filter(e => e.Status === 'Submitted');
+  const total = x.list.reduce((a, e) => a + (+e.Amount || 0), 0);
+  $('#rvDetail').innerHTML = `<div class="card">
+    <div class="cardhead"><h2>${esc((x.list[0] || {}).EmployeeName || '')} – expenses</h2><b class="num">${money(total)}</b></div>
+    <div class="muted small" style="margin-bottom:10px">${weekLabel(x.ws)} · ${x.list.length} item(s) · ${pend.length} waiting</div>
+    ${pend.length > 1 ? `<div class="row" style="margin-bottom:12px"><button class="btn good" onclick="rexApproveAll()">Approve all ${pend.length} waiting (${money(pend.reduce((a, e) => a + (+e.Amount || 0), 0))})</button></div>` : ''}
+    ${x.list.map((e, i) => `<div class="rev-exp" id="rex${i}">
+      <div>${e.ReceiptFileID ? `<a class="thumbbig" href="${esc(e.ReceiptURL)}" target="_blank" rel="noopener" title="Open receipt in Drive"><img src="${thumbUrl(e.ReceiptFileID)}" alt="Receipt" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'Open receipt'}))"></a>
+        <a class="small" href="${esc(e.ReceiptURL)}" target="_blank" rel="noopener">Open receipt in Drive ${ICON.ext}</a>` : `<div class="thumbbig muted">No receipt<br>(allowance)</div>`}</div>
+      <div>
+        <div class="row" style="margin-bottom:8px;align-items:center">${pill(e.Status)} ${e.IsTool === 'Yes' ? pill('tool', 'Tool / equipment') : ''} ${payPill(e)} ${e.PayrollRunID ? pill('neutral', 'Paid ' + esc(e.PayrollRunID)) : ''} <span class="tiny">sent ${esc(e.SubmittedAt)}${e.ReviewedAt ? ' · reviewed ' + esc(e.ReviewedBy) + ' ' + esc(e.ReviewedAt) : ''}</span></div>
+        <div class="fields edit-grid">
+          <div class="field"><label>Date</label><input type="date" data-k="Date" value="${e.Date}"></div>
+          <div class="field"><label>Job site</label><select data-k="ProjectID">${projectOptions(e.ProjectID, true)}</select></div>
+          <div class="field"><label>Paid with</label><select data-k="PaymentMethod" onchange="rexMode(${i},this.value)">${['Personal', 'Company Card', 'Allowance'].map(m => `<option value="${m}" ${payOf(e) === m ? 'selected' : ''}>${PAY[m]}</option>`).join('')}</select></div>
+          <div class="field"><label>Type</label><select data-k="ExpenseType">${rexTypeOptions(payOf(e), e.ExpenseType)}</select></div>
+          <div class="field ${payOf(e) === 'Company Card' ? '' : 'hidden'}" data-card><label>Card</label><input data-k="CardUsed" value="${esc(e.CardUsed || '')}" list="cardList"></div>
+          <div class="field"><label>Supplier</label><input data-k="Supplier" value="${esc(e.Supplier)}"></div>
+          <div class="field"><label>Amount ($)</label><input type="number" step="0.01" data-k="Amount" value="${e.Amount}"></div>
+          <div class="field"><label>Item</label><input data-k="Description" value="${esc(e.Description)}"></div>
+        </div>
+        ${e.OriginalAmount !== '' && e.OriginalAmount !== undefined ? `<div class="tiny">Originally submitted: ${money(e.OriginalAmount)}</div>` : ''}
+        <label class="small" style="display:flex;gap:6px;align-items:center;margin:8px 0"><input type="checkbox" data-k="IsTool" ${e.IsTool === 'Yes' ? 'checked' : ''}> Tool / equipment purchase (keep receipt in Tools register for warranty)</label>
+        <div class="field"><label>Comment to employee</label><input data-k="comment" value="${esc(e.AdminComment)}" placeholder="Required if rejecting"></div>
+        <div class="row" style="margin-top:8px">
+          <button class="btn sm good" onclick="rexDecide(${i},'approve')">${e.Status === 'Approved' ? 'Save & keep approved' : 'Approve'}</button>
+          <button class="btn sm bad" onclick="rexDecide(${i},'reject')">Reject</button>
+          <button class="btn sm" onclick="rexDecide(${i},'save')">Save changes</button>
+          <span class="spacer"></span><button class="btn sm ghost danger" onclick="adminDel('expense','${e.ExpenseID}','this expense',()=>{const {empId,ws}=S.rex;viewReviewKeep(()=>openExpGroup(empId,ws));})">Delete</button>
+        </div>
+      </div></div>`).join('')}
+    <datalist id="cardList">${(S.boot.companyCards || []).map(c => `<option value="${esc(c)}">`).join('')}</datalist>
+  </div>`;
+}
+function rexTypeOptions(mode, sel) {
+  const list = mode === 'Allowance' ? S.boot.allowanceTypes : S.boot.expenseTypes;
+  return list.map(t => `<option ${t === sel ? 'selected' : ''}>${esc(t)}</option>`).join('') + (sel && list.indexOf(sel) < 0 ? `<option selected>${esc(sel)}</option>` : '');
+}
+function rexMode(i, m) {
+  const box = $('#rex' + i);
+  $('[data-k="ExpenseType"]', box).innerHTML = rexTypeOptions(m, $('[data-k="ExpenseType"]', box).value);
+  $('[data-card]', box).classList.toggle('hidden', m !== 'Company Card');
+}
+function rexRead(i) {
+  const box = $('#rex' + i), v = k => $(`[data-k="${k}"]`, box);
+  return { edits: { Date: v('Date').value, ProjectID: v('ProjectID').value, ExpenseType: v('ExpenseType').value, Supplier: v('Supplier').value, Amount: v('Amount').value, Description: v('Description').value,
+    IsTool: v('IsTool').checked ? 'Yes' : 'No', PaymentMethod: v('PaymentMethod').value, CardUsed: v('CardUsed').value }, comment: v('comment').value.trim() };
+}
+function rexDecide(i, action) {
+  const e = S.rex.list[i], r = rexRead(i);
+  if (action === 'reject' && !r.comment) return toast('Write a reason in the comment box before rejecting.', 'bad');
+  call('adminReviewExpenses', S.token, [{ expenseId: e.ExpenseID, action, comment: r.comment, edits: r.edits }]).then(() => {
+    toast(action === 'approve' ? 'Expense approved.' : action === 'reject' ? 'Expense rejected.' : 'Saved.', 'good');
+    const { empId, ws } = S.rex; viewReviewKeep(() => openExpGroup(empId, ws));
+  }).catch(fail);
+}
+function rexApproveAll() {
+  const ds = S.rex.list.map((e, i) => e.Status === 'Submitted' ? Object.assign({ expenseId: e.ExpenseID, action: 'approve' }, rexRead(i)) : null).filter(Boolean);
+  call('adminReviewExpenses', S.token, ds).then(() => { toast(ds.length + ' expenses approved.', 'good'); const { empId, ws } = S.rex; viewReviewKeep(() => openExpGroup(empId, ws)); }).catch(fail);
+}
+
+/* =====================================================================
+   ADMIN – ANALYTICS
+   ===================================================================== */
+function quickRange(k) {
+  const t = S.boot.today, m = mondayOf(t);
+  return ({ week: [m, t], lastweek: [addDays(m, -7), addDays(m, -1)], month: [t.slice(0, 8) + '01', t], d30: [addDays(t, -29), t], d90: [addDays(t, -89), t], ytd: [t.slice(0, 4) + '-01-01', t], all: ['2000-01-01', t] })[k];
+}
+function viewAnalytics() {
+  const f = S.aFilter = S.aFilter || { from: addDays(S.boot.today, -89), to: S.boot.today, projectId: '', employeeId: '', includePending: false };
+  $('#main').innerHTML = `
+    <div class="card"><div class="row">
+      <div class="field"><label for="aFrom">From</label><input type="date" id="aFrom" value="${f.from}"></div>
+      <div class="field"><label for="aTo">To</label><input type="date" id="aTo" value="${f.to}"></div>
+      <div class="field"><label for="aProj">Job site</label><select id="aProj"><option value="">All job sites</option>${S.boot.projects.map(p => `<option value="${esc(p.ProjectID)}" ${f.projectId === p.ProjectID ? 'selected' : ''}>${esc(p.Name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="aEmp">Employee</label><select id="aEmp"><option value="">All employees</option>${S.boot.employees.map(e => `<option value="${esc(e.EmployeeID)}" ${f.employeeId === e.EmployeeID ? 'selected' : ''}>${esc(e.Name)}</option>`).join('')}</select></div>
+      <label class="small" style="display:flex;gap:6px;align-items:center;min-height:38px"><input type="checkbox" id="aPend" ${f.includePending ? 'checked' : ''}> Include not-yet-approved</label>
+      <button class="btn primary" onclick="aApply()">Apply</button>
+    </div>
+    <div class="row" style="margin-top:8px;gap:6px">${[['week', 'This week'], ['lastweek', 'Last week'], ['month', 'This month'], ['d30', '30 days'], ['d90', '90 days'], ['ytd', 'Year to date'], ['all', 'All time']].map(([k, l]) => `<button class="btn sm ghost" onclick="const r=quickRange('${k}');$('#aFrom').value=r[0];$('#aTo').value=r[1];aApply()">${l}</button>`).join('')}</div></div>
+    <div id="aOut"><div class="card muted">Crunching numbers…</div></div>`;
+  call('adminGetAnalytics', S.token, f).then(r => { S.analytics = r; drawAnalytics(); }).catch(fail);
+}
+function aApply() {
+  S.aFilter = { from: $('#aFrom').value, to: $('#aTo').value, projectId: $('#aProj').value, employeeId: $('#aEmp').value, includePending: $('#aPend').checked };
+  viewAnalytics();
+}
+const EXP_GROUPS = [
+  ['Food', /food|meal/i], ['Gas / Fuel', /gas|fuel/i], ['Materials', /material/i], ['Tools & Equipment', /tool|equipment/i], ['Lodging & Travel', /lodg|hotel|parking|toll|travel|vehicle/i]
+];
+function expGroup(type) { for (const [g, re] of EXP_GROUPS) if (re.test(type)) return g; return 'Other'; }
+function drawAnalytics() {
+  const a = S.analytics, K = a.kpis;
+  if (!a.projects.length) {
+    $('#aOut').innerHTML = `<div class="kpis">${kpiTiles(a)}</div><div class="card muted">No ${a.includePending ? '' : 'approved '}hours or expenses in this period yet. ${a.includePending ? '' : 'Tick “Include not-yet-approved” to see pending submissions.'}</div>`;
+    return;
+  }
+  const types = a.expenseTypes.map(t => t.type);
+  const projRows = a.projects.map(p => `<tr><td><b>${esc(p.name)}</b>${p.client ? `<div class="tiny">${esc(p.client)}</div>` : ''}</td>
+      <td class="num">${hrs(p.hours)}</td><td class="num">${money0(p.laborCost)}</td>
+      ${types.map(t => `<td class="num">${p.byType[t] ? money0(p.byType[t]) : '<span class="tiny">–</span>'}</td>`).join('')}
+      <td class="num">${money0(p.expenses)}</td><td class="num"><b>${money0(p.total)}</b></td>
+      <td class="num">${p.budget ? money0(p.budget) : '<span class="tiny">–</span>'}</td>
+      <td style="min-width:110px">${p.budget ? `<div class="bar-inline ${p.budgetUsedPct > 100 ? 'over' : ''}"><span style="width:${Math.min(100, p.budgetUsedPct)}%"></span></div><div class="tiny">${Math.round(p.budgetUsedPct)}% used</div>` : ''}</td></tr>`).join('');
+  const projNames = a.projects.map(p => p.name);
+  const empRows = a.employees.map(e => `<tr><td><b>${esc(e.name)}</b></td>${projNames.map(p => `<td class="num">${e.byProject[p] ? hrs(e.byProject[p]) : '<span class="tiny">–</span>'}</td>`).join('')}
+      <td class="num"><b>${hrs(e.hours)}</b></td><td class="num">${e.overtime ? hrs(e.overtime) : '–'}</td><td class="num">${money0(e.laborCost)}</td><td class="num">${money0(e.expenses)}</td></tr>`).join('');
+  $('#aOut').innerHTML = `
+    <div class="kpis">${kpiTiles(a)}</div>
+    <div class="charts">
+      <div class="card"><div class="cardhead"><h3>Real cost by job site</h3></div><div class="tiny" style="margin-bottom:6px">Labor (hours × rate) + expenses</div><div class="chartbox" style="height:${Math.max(220, a.projects.length * 42 + 80)}px"><canvas id="chCost"></canvas></div></div>
+      <div class="card"><div class="cardhead"><h3>Hours by job site</h3></div><div class="chartbox" style="height:${Math.max(220, a.projects.length * 34 + 40)}px"><canvas id="chHours"></canvas></div></div>
+      <div class="card"><div class="cardhead"><h3>Hours by employee, split by job</h3></div><div class="chartbox" style="height:${Math.max(220, a.employees.length * 38 + 80)}px"><canvas id="chEmp"></canvas></div></div>
+      <div class="card"><div class="cardhead"><h3>Expenses by category</h3></div><div class="chartbox" style="height:${Math.max(220, a.expenseTypes.length * 34 + 40)}px"><canvas id="chTypes"></canvas></div></div>
+      <div class="card"><div class="cardhead"><h3>Hours per week</h3></div><div class="chartbox" style="height:240px"><canvas id="chWeekH"></canvas></div></div>
+      <div class="card"><div class="cardhead"><h3>Cost per week</h3></div><div class="chartbox" style="height:240px"><canvas id="chWeekC"></canvas></div></div>
+    </div>
+    <div class="card"><div class="cardhead"><h3>Job cost breakdown</h3><button class="btn sm" onclick="csvFromTable('tblProj','job-costs')">Download CSV</button></div>
+      <div class="tablewrap"><table id="tblProj"><thead><tr><th>Job site</th><th class="num">Hours</th><th class="num">Labor $</th>${types.map(t => `<th class="num">${esc(t)}</th>`).join('')}<th class="num">All expenses</th><th class="num">Total cost</th><th class="num">Budget</th><th>Budget used</th></tr></thead>
+      <tbody>${projRows}</tbody><tfoot><tr><td>Total</td><td class="num">${hrs(K.hours)}</td><td class="num">${money0(K.laborCost)}</td>${types.map(t => `<td class="num">${money0(a.expenseTypes.find(x => x.type === t).amount)}</td>`).join('')}<td class="num">${money0(K.expenses)}</td><td class="num">${money0(K.totalCost)}</td><td></td><td></td></tr></tfoot></table></div></div>
+    <div class="card"><div class="cardhead"><h3>Employee hours by job site</h3><button class="btn sm" onclick="csvFromTable('tblEmp','employee-hours')">Download CSV</button></div>
+      <div class="tablewrap"><table id="tblEmp"><thead><tr><th>Employee</th>${projNames.map(p => `<th class="num">${esc(p)}</th>`).join('')}<th class="num">Total h</th><th class="num">Overtime h</th><th class="num">Labor $</th><th class="num">Expenses</th></tr></thead>
+      <tbody>${empRows}</tbody><tfoot><tr><td>Total</td>${a.projects.map(p => `<td class="num">${hrs(p.hours)}</td>`).join('')}<td class="num">${hrs(K.hours)}</td><td class="num">${hrs(K.overtime)}</td><td class="num">${money0(K.laborCost)}</td><td class="num">${money0(K.expenses)}</td></tr></tfoot></table></div>
+      <div class="tiny" style="margin-top:6px">Overtime = hours above 40 in a Monday–Sunday week.</div></div>`;
+  drawCharts();
+}
+function kpiTiles(a) {
+  const K = a.kpis;
+  return `
+    <div class="kpi"><div class="k">Total hours</div><div class="v">${hrs(K.hours)}</div><div class="s">${hrs(K.overtime)} h overtime</div></div>
+    <div class="kpi"><div class="k">Labor cost</div><div class="v">${money0(K.laborCost)}</div><div class="s">hours × hourly rate</div></div>
+    <div class="kpi"><div class="k">Company card spend</div><div class="v">${money0(K.companyCard || 0)}</div><div class="s">recorded, not paid back · ${money0(K.reimbursable || 0)} to reimburse</div></div>
+    <div class="kpi"><div class="k">Expenses</div><div class="v">${money0(K.expenses)}</div><div class="s">${a.expenseTypes.slice(0, 2).map(t => esc(t.type) + ' ' + money0(t.amount)).join(' · ') || '&nbsp;'}</div></div>
+    <div class="kpi"><div class="k">Total job cost</div><div class="v">${money0(K.totalCost)}</div><div class="s">labor + expenses</div></div>
+    <div class="kpi"><div class="k">Tools bought</div><div class="v">${K.toolsCount}</div><div class="s">${money0(K.toolsAmount)}</div></div>
+    <div class="kpi" style="cursor:pointer" onclick="S.reviewFilter=null;go('review')"><div class="k">Waiting for review</div><div class="v">${K.pendingTimesheets + K.pendingExpenses}</div><div class="s">${K.pendingTimesheets} timesheets · ${K.pendingExpenses} expenses</div></div>`;
+}
+function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function destroyCharts() { S.charts.forEach(c => c.destroy()); S.charts = []; }
+function drawCharts() {
+  if (!window.Chart) return;
+  destroyCharts();
+  const a = S.analytics, series = [1, 2, 3, 4, 5, 6, 7, 8].map(i => cssVar('--s' + i));
+  const text = cssVar('--text-2'), grid = cssVar('--grid'), surface = cssVar('--surface');
+  Chart.defaults.color = text; Chart.defaults.font.family = 'system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif'; Chart.defaults.font.size = 12;
+  Chart.defaults.borderColor = grid;
+  const tip = { backgroundColor: cssVar('--surface'), titleColor: cssVar('--text'), bodyColor: cssVar('--text-2'), borderColor: cssVar('--border-strong'), borderWidth: 1, padding: 10 };
+  const fmtMoney = v => money0(v), fmtH = v => hrs(v) + ' h';
+  const hbar = (id, labels, datasets, fmt, stacked) => {
+    const el = document.getElementById(id); if (!el) return;
+    S.charts.push(new Chart(el, {
+      type: 'bar', data: { labels, datasets: datasets.map(d => Object.assign({ borderRadius: stacked ? 0 : 4, borderSkipped: false, maxBarThickness: 26, borderColor: surface, borderWidth: stacked ? { right: 2 } : 0 }, d)) },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, interaction: { mode: stacked ? 'index' : 'nearest', axis: 'y', intersect: false },
+        scales: { x: { stacked, grid: { color: grid }, ticks: { callback: fmt }, border: { display: false } }, y: { stacked, grid: { display: false }, border: { display: false } } },
+        plugins: { legend: { display: datasets.length > 1, position: 'top', align: 'start', labels: { boxWidth: 10, boxHeight: 10, useBorderRadius: true, borderRadius: 2 } },
+          tooltip: Object.assign({}, tip, { callbacks: { label: c => ` ${c.dataset.label ? c.dataset.label + ': ' : ''}${fmt(c.parsed.x)}` } }) } }
+    }));
+  };
+  // 1) cost by job – labor + grouped expense categories (≤ 7 series, fixed order)
+  const groups = ['Labor'].concat(EXP_GROUPS.map(g => g[0]), ['Other']);
+  const costBy = a.projects.map(p => { const o = { Labor: p.laborCost }; Object.entries(p.byType).forEach(([t, v]) => { const g = expGroup(t); o[g] = (o[g] || 0) + v; }); return o; });
+  const usedGroups = groups.filter(g => costBy.some(o => o[g]));
+  hbar('chCost', a.projects.map(p => p.name), usedGroups.map(g => ({ label: g, data: costBy.map(o => Math.round((o[g] || 0) * 100) / 100), backgroundColor: series[groups.indexOf(g)] })), fmtMoney, true);
+  // 2) hours by job
+  hbar('chHours', a.projects.map(p => p.name), [{ label: 'Hours', data: a.projects.map(p => p.hours), backgroundColor: series[0] }], fmtH, false);
+  // 3) hours by employee, stacked by job (top 7 jobs + Other, colors follow the job)
+  const topJobs = a.projects.slice().sort((x, y) => y.hours - x.hours).filter(p => p.hours > 0).slice(0, 7).map(p => p.name);
+  const jobSeries = topJobs.map((j, i) => ({ label: j, data: a.employees.map(e => e.byProject[j] || 0), backgroundColor: series[i] }));
+  const otherH = a.employees.map(e => Object.entries(e.byProject).filter(([j]) => topJobs.indexOf(j) < 0).reduce((s, [, h]) => s + h, 0));
+  if (otherH.some(Boolean)) jobSeries.push({ label: 'Other jobs', data: otherH, backgroundColor: cssVar('--border-strong') });
+  hbar('chEmp', a.employees.map(e => e.name), jobSeries, fmtH, true);
+  // 4) expenses by category
+  hbar('chTypes', a.expenseTypes.map(t => t.type), [{ label: 'Amount', data: a.expenseTypes.map(t => t.amount), backgroundColor: series[1] }], fmtMoney, false);
+  // 5/6) weekly trends (two charts – never a dual axis)
+  const wl = a.weeks.map(w => pretty(w.week));
+  const line = (id, datasets, fmt) => {
+    const el = document.getElementById(id); if (!el) return;
+    S.charts.push(new Chart(el, { type: 'line', data: { labels: wl, datasets: datasets.map(d => Object.assign({ borderWidth: 2, pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: d.borderColor, pointBorderColor: surface, pointBorderWidth: 2, tension: 0.25 }, d)) },
+      options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+        scales: { y: { beginAtZero: true, grid: { color: grid }, ticks: { callback: fmt }, border: { display: false } }, x: { grid: { display: false }, border: { display: false } } },
+        plugins: { legend: { display: datasets.length > 1, position: 'top', align: 'start', labels: { boxWidth: 10, boxHeight: 10 } }, tooltip: Object.assign({}, tip, { callbacks: { label: c => ` ${c.dataset.label}: ${fmt(c.parsed.y)}` } }) } } }));
+  };
+  line('chWeekH', [{ label: 'Hours', data: a.weeks.map(w => w.hours), borderColor: series[0] }], fmtH);
+  line('chWeekC', [{ label: 'Labor', data: a.weeks.map(w => w.laborCost), borderColor: series[0] }, { label: 'Expenses', data: a.weeks.map(w => w.expenses), borderColor: series[1] }], fmtMoney);
+}
+function csvFromTable(id, name) {
+  const rows = $$('#' + id + ' tr').map(tr => $$('th,td', tr).map(td => '"' + td.innerText.replace(/\n/g, ' ').replace(/"/g, '""').replace(/^–$/, '') + '"').join(','));
+  downloadText(rows.join('\n'), name + '_' + S.boot.today + '.csv', 'text/csv');
+}
+function downloadText(txt, filename, mime) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: mime })); a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* =====================================================================
+   ADMIN – TOOLS REGISTER
+   ===================================================================== */
+function viewTools() {
+  call('adminGetTools', S.token).then(list => { S.tools = list; drawTools(); }).catch(fail);
+}
+function warranty(t) {
+  if (!t.WarrantyExpires) return { label: 'No warranty', cls: 'neutral', days: null };
+  const days = Math.round((parseYMD(t.WarrantyExpires) - parseYMD(S.boot.today)) / 86400000);
+  if (days < 0) return { label: 'Expired ' + pretty(t.WarrantyExpires), cls: 'Expired', days };
+  return { label: (days <= 60 ? '⚠ ' : '') + 'Until ' + pretty(t.WarrantyExpires) + ', ' + t.WarrantyExpires.slice(0, 4), cls: days <= 60 ? 'Pending' : 'Active', days };
+}
+function drawTools() {
+  const q = (S.toolQ || '').toLowerCase(), st = S.toolSt || '';
+  const list = S.tools.filter(t => (!st || t.Status === st) && (!q || [t.Item, t.EmployeeName, t.ProjectName, t.Supplier, t.SerialNumber, t.Category, t.Location].join(' ').toLowerCase().indexOf(q) >= 0));
+  const all = S.tools, under = all.filter(t => { const w = warranty(t); return w.days !== null && w.days >= 0; }), soon = all.filter(t => { const w = warranty(t); return w.days !== null && w.days >= 0 && w.days <= 60; });
+  $('#main').innerHTML = `
+    <div class="kpis">
+      <div class="kpi"><div class="k">Tools & equipment logged</div><div class="v">${all.length}</div><div class="s">${money0(all.reduce((a, t) => a + (+t.Amount || 0), 0))} total</div></div>
+      <div class="kpi"><div class="k">Under warranty</div><div class="v">${under.length}</div><div class="s">&nbsp;</div></div>
+      <div class="kpi"><div class="k">Warranty ends in 60 days</div><div class="v">${soon.length}</div><div class="s">&nbsp;</div></div>
+      <div class="kpi"><div class="k">Waiting for approval</div><div class="v">${all.filter(t => t.Status === 'Pending Approval').length}</div><div class="s">approve the expense to activate</div></div>
+    </div>
+    <div class="card">
+      <div class="cardhead"><h2>Tools & equipment register</h2><button class="btn sm" onclick="csvFromTable('tblTools','tools-register')">Download CSV</button></div>
+      <p class="tiny" style="margin-top:0">Purchases are added automatically when an expense is typed as Tools/Equipment or the item description matches a tool keyword (Settings). You can also tick “Tool / equipment” while reviewing any expense.</p>
+      <div class="row" style="margin-bottom:10px">
+        <div class="field" style="flex:1;min-width:200px"><label for="tq">Search</label><input id="tq" value="${esc(S.toolQ || '')}" placeholder="Item, employee, job, serial…" oninput="S.toolQ=this.value;clearTimeout(S.tqT);S.tqT=setTimeout(()=>{drawTools();const i=$('#tq');i.focus();i.setSelectionRange(i.value.length,i.value.length)},250)"></div>
+        <div class="field"><label for="tst">Status</label><select id="tst" onchange="S.toolSt=this.value;drawTools()"><option value="">All</option>${['Active', 'Pending Approval', 'In Repair', 'Lost / Stolen', 'Retired'].map(s => `<option ${st === s ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+      </div>
+      <div class="tablewrap"><table id="tblTools"><thead><tr><th>Item</th><th>Bought</th><th>By</th><th>Job site</th><th>Supplier</th><th class="num">Amount</th><th>Warranty</th><th>Serial #</th><th>Status</th><th>Receipt</th><th></th></tr></thead><tbody>
+      ${list.map(t => { const w = warranty(t); return `<tr><td><b>${esc(t.Item)}</b><div class="tiny">${esc(t.Category)}${t.Location ? ' · ' + esc(t.Location) : ''}</div></td><td>${t.PurchaseDate}</td><td>${esc(t.EmployeeName)}</td><td>${esc(t.ProjectName)}</td><td>${esc(t.Supplier)}</td>
+        <td class="num">${money(t.Amount)}</td><td>${pill(w.cls, w.label)}</td><td class="small">${esc(t.SerialNumber)}</td><td>${pill(t.Status === 'Pending Approval' ? 'Pending' : t.Status === 'Active' ? 'Active' : 'neutral', t.Status)}</td>
+        <td><a href="${esc(t.ReceiptURL)}" target="_blank" rel="noopener">Receipt ${ICON.ext}</a></td><td class="nowrap"><button class="btn sm" onclick="editTool('${t.ToolID}')">Edit</button> <button class="btn sm ghost danger" onclick="adminDel('tool','${t.ToolID}','this tool record',viewTools)">Delete</button></td></tr>`; }).join('') || '<tr><td colspan="11" class="muted">No tools match.</td></tr>'}
+      </tbody></table></div>
+    </div>`;
+}
+function editTool(id) {
+  const t = S.tools.find(x => x.ToolID === id);
+  modal(`<h2>Edit tool</h2><div class="muted small" style="margin-bottom:10px">Bought ${t.PurchaseDate} by ${esc(t.EmployeeName)} at ${esc(t.Supplier)} · ${money(t.Amount)}</div>
+    <form id="toolForm" class="grid2" style="grid-template-columns:1fr 1fr">
+      <div class="field" style="grid-column:1/-1"><label>Item</label><input name="Item" value="${esc(t.Item)}"></div>
+      <div class="field"><label>Serial number</label><input name="SerialNumber" value="${esc(t.SerialNumber)}"></div>
+      <div class="field"><label>Warranty (months)</label><input name="WarrantyMonths" type="number" min="0" value="${esc(t.WarrantyMonths)}"></div>
+      <div class="field"><label>Status</label><select name="Status">${['Active', 'Pending Approval', 'In Repair', 'Lost / Stolen', 'Retired'].map(s => `<option ${t.Status === s ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+      <div class="field"><label>Location / assigned to</label><input name="Location" value="${esc(t.Location)}" placeholder="e.g. Truck 2, John"></div>
+      <div class="field" style="grid-column:1/-1"><label>Notes</label><textarea name="Notes">${esc(t.Notes)}</textarea></div>
+      <div class="row" style="grid-column:1/-1"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" onclick="closeOverlay()">Cancel</button><a class="btn ghost" href="${esc(t.ReceiptURL)}" target="_blank" rel="noopener">Receipt ${ICON.ext}</a></div>
+    </form>`);
+  $('#toolForm').onsubmit = ev => { ev.preventDefault(); const d = formData(ev.target); d.ToolID = id;
+    call('adminSaveTool', S.token, d).then(l => { S.tools = l; closeOverlay(); drawTools(); toast('Saved.', 'good'); }).catch(fail); };
+}
+function modal(html) { $('#overlay').innerHTML = `<div class="modal-bg" onclick="if(event.target===this)closeOverlay()"><div class="modal" role="dialog">${html}</div></div>`; }
+function formData(form) { const o = {}; new FormData(form).forEach((v, k) => o[k] = v); $$('input[type=checkbox]', form).forEach(c => { if (c.name) o[c.name] = c.checked ? 'Yes' : 'No'; }); return o; }
+
+/* =====================================================================
+   ADMIN – EMPLOYEES & PROJECTS
+   ===================================================================== */
+function viewEmployees() {
+  call('getBoot', S.token).then(b => { S.boot = b; drawEmployees(); }).catch(fail);
+}
+function drawEmployees() {
+  $('#main').innerHTML = `<div class="card"><div class="cardhead"><h2>Employees</h2><button class="btn primary" onclick="editEmp()">+ Add employee</button></div>
+    <div class="tablewrap"><table><tr><th>ID (login)</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th class="num">Rate $/h</th><th>Allowances</th><th>Status</th><th></th></tr>
+    ${S.boot.employees.map(e => `<tr><td><b>${esc(e.EmployeeID)}</b></td><td>${esc(e.Name)}</td><td>${esc(e.Email)}</td><td>${esc(e.Phone)}</td><td>${esc(e.Role)}</td><td class="num">${money(e.HourlyRate)}</td>
+      <td class="small">${e.Allowances ? esc(e.Allowances) + (e.AllowanceAmount !== '' && e.AllowanceAmount !== undefined ? ' · ' + money(e.AllowanceAmount) : '') : '–'}</td>
+      <td>${pill(e.Active === 'Yes' ? 'Active' : 'Closed', e.Active === 'Yes' ? 'Active' : 'Inactive')}</td><td class="nowrap"><button class="btn sm" onclick="editEmp('${esc(e.EmployeeID)}')">Edit</button>
+      ${e.EmployeeID !== S.boot.user.id ? `<button class="btn sm ghost danger" onclick="adminDel('employee','${esc(e.EmployeeID)}','${esc(e.Name)}',viewEmployees)">Delete</button>` : ''}</td></tr>`).join('')}
+    </table></div><p class="tiny">Employees log in with their ID and password. The hourly rate is used to calculate labor cost per job (it is not shown to employees).</p></div>`;
+}
+function editEmp(id) {
+  const e = id ? S.boot.employees.find(x => x.EmployeeID === id) : { Role: 'Employee', Active: 'Yes', HourlyRate: '' };
+  modal(`<h2>${id ? 'Edit employee' : 'New employee'}</h2>
+    <form id="empForm" class="grid2" style="grid-template-columns:1fr 1fr">
+      <div class="field"><label>Employee ID (used to log in)</label><input name="EmployeeID" value="${esc(e.EmployeeID || '')}" ${id ? 'readonly' : ''} required pattern="[A-Za-z0-9_.\\-]{2,30}" placeholder="e.g. E001"></div>
+      <div class="field"><label>Full name</label><input name="Name" value="${esc(e.Name || '')}" required></div>
+      <div class="field"><label>Email (for notifications & statements)</label><input name="Email" type="email" value="${esc(e.Email || '')}"></div>
+      <div class="field"><label>Phone</label><input name="Phone" value="${esc(e.Phone || '')}"></div>
+      <div class="field"><label>Role</label><select name="Role"><option ${e.Role === 'Employee' ? 'selected' : ''}>Employee</option><option ${e.Role === 'Admin' ? 'selected' : ''}>Admin</option></select></div>
+      <div class="field"><label>Hourly rate ($)</label><input name="HourlyRate" type="number" step="0.01" min="0" value="${esc(e.HourlyRate)}"></div>
+      <div class="field"><label>${id ? 'Reset password (leave blank to keep)' : 'Starting password'}</label><input name="newPassword" type="text" autocomplete="off" ${id ? '' : 'required'} minlength="6"></div>
+      <div class="field"><label>Status</label><select name="Active"><option value="Yes" ${e.Active === 'Yes' ? 'selected' : ''}>Active</option><option value="No" ${e.Active === 'No' ? 'selected' : ''}>Inactive (cannot log in)</option></select></div>
+      <div class="field" style="grid-column:1/-1"><label>Allowances (claimable without a receipt)</label>
+        <div class="row" style="gap:14px">${S.boot.allowanceTypes.map(t => `<label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-allow value="${esc(t)}" ${(e.Allowances || '').split(',').map(x => x.trim()).indexOf(t) >= 0 ? 'checked' : ''}> ${esc(t)}</label>`).join('') || '<span class="tiny">Add allowance types in Settings.</span>'}</div></div>
+      <div class="field"><label>Default allowance amount ($, optional)</label><input name="AllowanceAmount" type="number" step="0.01" min="0" value="${esc(e.AllowanceAmount === undefined ? '' : e.AllowanceAmount)}"></div>
+      <div class="row" style="grid-column:1/-1"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" onclick="closeOverlay()">Cancel</button></div>
+    </form>`);
+  $('#empForm').onsubmit = ev => { ev.preventDefault();
+    const d = formData(ev.target); d.Allowances = $$('[data-allow]', ev.target).filter(c => c.checked).map(c => c.value); delete d['']; 
+    call('adminSaveEmployee', S.token, d, !id).then(list => { S.boot.employees = list; closeOverlay(); drawEmployees(); toast('Employee saved.', 'good'); }).catch(fail); };
+}
+function viewProjects() {
+  call('getBoot', S.token).then(b => { S.boot = b; drawProjects(); }).catch(fail);
+}
+function drawProjects() {
+  $('#main').innerHTML = `<div class="card"><div class="cardhead"><h2>Job sites / projects</h2><button class="btn primary" onclick="editProj()">+ Add job site</button></div>
+    <div class="tablewrap"><table><tr><th>ID</th><th>Name</th><th>Client</th><th>Address</th><th class="num">Budget</th><th>Start</th><th>Status</th><th></th></tr>
+    ${S.boot.projects.map(p => `<tr><td class="small">${esc(p.ProjectID)}</td><td><b>${esc(p.Name)}</b></td><td>${esc(p.Client)}</td><td class="small">${esc(p.Address)}</td><td class="num">${p.Budget ? money0(p.Budget) : '–'}</td><td>${esc(p.StartDate)}</td>
+      <td>${pill(p.Status === 'Closed' ? 'Closed' : 'Active', p.Status || 'Active')}</td><td class="nowrap"><button class="btn sm" onclick="editProj('${esc(p.ProjectID)}')">Edit</button> <button class="btn sm" onclick="S.jobF=Object.assign({},S.jobF||{},{projectId:'${esc(p.ProjectID)}'});go('jobs')">Report</button>
+      <button class="btn sm ghost danger" onclick="adminDel('project','${esc(p.ProjectID)}','${esc(p.Name)}',viewProjects)">Delete</button></td></tr>`).join('') || '<tr><td colspan="8" class="muted">No job sites yet – add your first one so employees can log hours against it.</td></tr>'}
+    </table></div><p class="tiny">Closed job sites are hidden from employees but stay in reports and analytics.</p></div>`;
+}
+function editProj(id) {
+  const p = id ? S.boot.projects.find(x => x.ProjectID === id) : { Status: 'Active' };
+  modal(`<h2>${id ? 'Edit job site' : 'New job site'}</h2>
+    <form id="projForm" class="grid2" style="grid-template-columns:1fr 1fr">
+      <div class="field" style="grid-column:1/-1"><label>Job site / project name</label><input name="Name" value="${esc(p.Name || '')}" required></div>
+      <div class="field"><label>Client</label><input name="Client" value="${esc(p.Client || '')}"></div>
+      <div class="field"><label>Budget ($)</label><input name="Budget" type="number" step="0.01" min="0" value="${esc(p.Budget || '')}"></div>
+      <div class="field" style="grid-column:1/-1"><label>Address</label><input name="Address" value="${esc(p.Address || '')}"></div>
+      <div class="field"><label>Start date</label><input name="StartDate" type="date" value="${esc(p.StartDate || '')}"></div>
+      <div class="field"><label>Status</label><select name="Status"><option ${p.Status !== 'Closed' ? 'selected' : ''}>Active</option><option ${p.Status === 'Closed' ? 'selected' : ''}>Closed</option></select></div>
+      <div class="field" style="grid-column:1/-1"><label>Notes</label><textarea name="Notes">${esc(p.Notes || '')}</textarea></div>
+      <div class="row" style="grid-column:1/-1"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" onclick="closeOverlay()">Cancel</button></div>
+    </form>`);
+  $('#projForm').onsubmit = ev => { ev.preventDefault(); const d = formData(ev.target); d.ProjectID = id || '';
+    call('adminSaveProject', S.token, d).then(list => { S.boot.projects = list; closeOverlay(); drawProjects(); toast('Job site saved.', 'good'); }).catch(fail); };
+}
+
+/* =====================================================================
+   ADMIN – REPORTS
+   ===================================================================== */
+function viewReports() {
+  const r = S.repF = S.repF || Object.assign({ employeeId: (S.boot.employees.find(e => e.Role !== 'Admin') || S.boot.employees[0]).EmployeeID }, defaultRange());
+  $('#main').innerHTML = `
+    <div class="grid2 noprint">
+      <div class="card"><h3>Weekly summary PDF → Drive</h3><p class="small muted" style="margin-top:0">Saves every timesheet, time entry and expense (with receipt links) for one week as a PDF in your Drive folder “Weekly Reports”.</p>
+        <div class="row"><div class="field"><label for="wkPdf">Week (any day)</label><input type="date" id="wkPdf" value="${addDays(S.boot.currentWeek, -7)}"></div><button class="btn primary" onclick="exportWeek()">Save PDF to Drive</button></div><div id="wkOut" class="small" style="margin-top:8px"></div></div>
+      <div class="card"><h3>Your data in Google Drive</h3><p class="small muted" style="margin-top:0">Every submission is stored in the database spreadsheet, and receipts are filed by week.</p>
+        <div class="row"><a class="btn" href="${esc(S.boot.links.sheet)}" target="_blank" rel="noopener">Open database sheet ${ICON.ext}</a><a class="btn" href="${esc(S.boot.links.folder)}" target="_blank" rel="noopener">Open Drive folder ${ICON.ext}</a></div></div>
+    </div>
+    <div class="card noprint"><div class="cardhead"><h3>Employee statement</h3><button class="btn sm" onclick="window.print()">Print / save PDF</button></div>
+      <div class="row">
+        <div class="field"><label for="reEmp">Employee</label><select id="reEmp">${S.boot.employees.map(e => `<option value="${esc(e.EmployeeID)}" ${r.employeeId === e.EmployeeID ? 'selected' : ''}>${esc(e.Name)}</option>`).join('')}</select></div>
+        <div class="field"><label for="reFrom">From</label><input type="date" id="reFrom" value="${r.from}"></div>
+        <div class="field"><label for="reTo">To</label><input type="date" id="reTo" value="${r.to}"></div>
+        <button class="btn primary" onclick="S.repF={employeeId:$('#reEmp').value,from:$('#reFrom').value,to:$('#reTo').value};viewReports()">Show</button>
+        <button class="btn" onclick="sendStatements(false)">Email to this employee</button>
+        <button class="btn" onclick="sendStatements(true)">Email every employee their statement</button>
+      </div></div>
+    <div id="reportOut"><div class="card muted">Loading…</div></div>`;
+  call('adminGetEmployeeReport', S.token, r.employeeId, r.from, r.to).then(rep => { $('#reportOut').innerHTML = reportHtml(rep); }).catch(fail);
+}
+function sendStatements(all) {
+  const r = { employeeId: $('#reEmp').value, from: $('#reFrom').value, to: $('#reTo').value };
+  if (!confirm(all ? `Email every active employee their statement for ${r.from} to ${r.to}?` : `Email this statement (${r.from} to ${r.to}) to the employee?`)) return;
+  call('adminSendStatements', S.token, all ? '' : r.employeeId, r.from, r.to).then(x => toast(`${x.sent} statement(s) emailed.` + (x.skipped.length ? ' Skipped: ' + x.skipped.join(', ') : ''), x.sent ? 'good' : 'bad')).catch(fail);
+}
+function exportWeek() {
+  $('#wkOut').textContent = 'Building PDF…';
+  call('adminExportWeekPdf', S.token, $('#wkPdf').value).then(r => { $('#wkOut').innerHTML = `Saved: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)} ${ICON.ext}</a>`; }).catch(e => { $('#wkOut').textContent = ''; fail(e); });
+}
+
+/* =====================================================================
+   ADMIN – SETTINGS
+   ===================================================================== */
+function viewSettings() {
+  const s = S.boot.settings;
+  const long = ['ToolKeywords', 'ExpenseTypes'];
+  const CHOICES = { PayPeriod: ['Weekly', 'Bi-weekly', 'Semi-monthly', 'Monthly'], OvertimeRule: ['Weekly over 40', 'Daily over 8 + weekly over 40', 'None'],
+    EmailEmployeesOnReview: ['Yes', 'No'], ShareReceiptsByLink: ['No', 'Yes'], AutoBackup: ['Yes', 'No'] };
+  $('#main').innerHTML = `
+    <div class="card"><h2>Settings</h2>
+      <form id="setForm" class="grid2" style="grid-template-columns:1fr">
+        ${s.map(x => `<div class="field"><label for="set_${esc(x.Key)}">${esc(x.Key.replace(/([a-z])([A-Z])/g, '$1 $2'))}</label>
+          ${CHOICES[x.Key] ? `<select id="set_${esc(x.Key)}" name="${esc(x.Key)}">${CHOICES[x.Key].map(o => `<option ${o === x.Value ? 'selected' : ''}>${o}</option>`).join('')}</select>`
+            : x.Key === 'PayPeriodAnchor' ? `<input type="date" id="set_${esc(x.Key)}" name="${esc(x.Key)}" value="${esc(x.Value)}">`
+            : long.indexOf(x.Key) >= 0 ? `<textarea id="set_${esc(x.Key)}" name="${esc(x.Key)}">${esc(x.Value)}</textarea>` : `<input id="set_${esc(x.Key)}" name="${esc(x.Key)}" value="${esc(x.Value)}">`}
+          <span class="tiny">${esc(x.Description)}</span></div>`).join('')}
+        <div><button class="btn primary" type="submit">Save settings</button></div>
+      </form></div>
+    <div class="card" style="max-width:480px"><h2>Change my password</h2>${pwFormHtml()}</div>`;
+  $('#setForm').onsubmit = ev => { ev.preventDefault();
+    call('adminSaveSettings', S.token, formData(ev.target)).then(() => call('getBoot', S.token)).then(b => { S.boot = b; toast('Settings saved.', 'good'); viewSettings(); }).catch(fail); };
+  bindPwForm();
+}
+
+/* =====================================================================
+   ADMIN – DELETE helper (everything goes to the restorable trash)
+   ===================================================================== */
+function adminDel(kind, id, label, after) {
+  if (!confirm(`Delete ${label}?\n\nIt goes to the Trash (Data & Backup tab) and can be restored.`)) return;
+  call('adminDelete', S.token, kind, id).then(() => { toast('Moved to Trash. You can restore it from Data & Backup.', 'good'); if (after) after(); }).catch(fail);
+}
+
+/* =====================================================================
+   ADMIN – JOBS (tracking & details by job site)
+   ===================================================================== */
+function viewJobs() {
+  const ps = S.boot.projects;
+  if (!ps.length) { $('#main').innerHTML = '<div class="card muted">Add a job site first (Job Sites tab).</div>'; return; }
+  const f = S.jobF = Object.assign({ projectId: ps[0].ProjectID, from: '2000-01-01', to: S.boot.today, includePending: false }, S.jobF || {});
+  if (!ps.some(p => p.ProjectID === f.projectId)) f.projectId = ps[0].ProjectID;
+  $('#main').innerHTML = `
+    <div class="card noprint"><div class="row">
+      <div class="field" style="min-width:220px;flex:1"><label for="jbP">Job site</label><select id="jbP">${ps.map(p => `<option value="${esc(p.ProjectID)}" ${p.ProjectID === f.projectId ? 'selected' : ''}>${esc(p.Name)}${p.Status === 'Closed' ? ' (closed)' : ''}</option>`).join('')}</select></div>
+      <div class="field"><label for="jbF">From</label><input type="date" id="jbF" value="${f.from === '2000-01-01' ? '' : f.from}"></div>
+      <div class="field"><label for="jbT">To</label><input type="date" id="jbT" value="${f.to}"></div>
+      <label class="small" style="display:flex;gap:6px;align-items:center;min-height:38px"><input type="checkbox" id="jbPend" ${f.includePending ? 'checked' : ''}> Include not-yet-approved</label>
+      <button class="btn primary" onclick="S.jobF={projectId:$('#jbP').value,from:$('#jbF').value||'2000-01-01',to:$('#jbT').value||S.boot.today,includePending:$('#jbPend').checked};viewJobs()">Show</button>
+    </div>
+    <div class="row" style="margin-top:8px;gap:6px">${[['all', 'Whole job'], ['month', 'This month'], ['d30', '30 days'], ['d90', '90 days'], ['ytd', 'Year to date']].map(([k, l]) => `<button class="btn sm ghost" onclick="const r=quickRange('${k}');S.jobF=Object.assign(S.jobF,{projectId:$('#jbP').value,from:r[0],to:r[1]});viewJobs()">${l}</button>`).join('')}</div></div>
+    <div id="jobOut"><div class="card muted">Loading…</div></div>`;
+  call('adminGetJobReport', S.token, f.projectId, f.from, f.to, f.includePending).then(r => { S.job = r; drawJob(); }).catch(fail);
+}
+function drawJob() {
+  const r = S.job, K = r.kpis, p = r.project;
+  const range = r.from === '2000-01-01' ? 'Whole job' : `${pretty(r.from)} – ${pretty(r.to)}, ${r.to.slice(0, 4)}`;
+  $('#jobOut').innerHTML = `
+    <div class="card"><div class="cardhead"><h2>${esc(p.Name)}</h2>${pill(p.Status === 'Closed' ? 'Closed' : 'Active', p.Status || 'Active')}
+      <button class="btn sm noprint" onclick="exportJobPdf()">Save PDF to Drive</button><button class="btn sm noprint" onclick="window.print()">Print</button></div>
+      <div class="muted small">${p.Client ? 'Client: ' + esc(p.Client) + ' · ' : ''}${p.Address ? esc(p.Address) + ' · ' : ''}${range}${r.includePending ? ' · incl. not yet approved' : ' · approved only'}
+      ${K.firstActivity ? ` · activity ${pretty(K.firstActivity)} – ${pretty(K.lastActivity)}` : ''}</div><div id="jobPdf" class="small"></div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="k">Hours</div><div class="v">${hrs(K.hours)}</div><div class="s">${K.workers} worker${K.workers === 1 ? '' : 's'}${K.pendingHours ? ' · ' + hrs(K.pendingHours) + ' h pending' : ''}</div></div>
+      <div class="kpi"><div class="k">Labor cost</div><div class="v">${money0(K.labor)}</div><div class="s">hours × rate</div></div>
+      <div class="kpi"><div class="k">Expenses</div><div class="v">${money0(K.expenses)}</div><div class="s">${money0(K.companyCard)} company card${K.pendingExpenses ? ' · ' + money0(K.pendingExpenses) + ' pending' : ''}</div></div>
+      <div class="kpi"><div class="k">Total cost</div><div class="v">${money0(K.total)}</div><div class="s">labor + expenses</div></div>
+      <div class="kpi"><div class="k">Budget used (all time)</div><div class="v">${K.budgetUsedPct === null ? '–' : Math.round(K.budgetUsedPct) + '%'}</div>
+        <div class="s">${K.budget ? money0(K.lifeCost) + ' of ' + money0(K.budget) : 'no budget set'}</div>${K.budget ? `<div class="bar-inline ${K.budgetUsedPct > 100 ? 'over' : ''}" style="margin-top:6px"><span style="width:${Math.min(100, K.budgetUsedPct)}%"></span></div>` : ''}</div>
+    </div>
+    ${r.byWeek.length ? `<div class="charts">
+      <div class="card"><h3>Cost per week</h3><div class="chartbox" style="height:240px"><canvas id="jbWeek"></canvas></div></div>
+      <div class="card"><h3>Hours by employee</h3><div class="chartbox" style="height:${Math.max(200, r.byEmployee.length * 36 + 40)}px"><canvas id="jbEmp"></canvas></div></div>
+    </div>` : '<div class="card muted">No hours or expenses for this job in this period.</div>'}
+    <div class="grid2">
+      <div class="card"><div class="cardhead"><h3>By employee</h3><button class="btn sm noprint" onclick="csvFromTable('jbTE','job-employees')">CSV</button></div>
+        <div class="tablewrap"><table id="jbTE"><thead><tr><th>Employee</th><th class="num">Days</th><th class="num">Hours</th><th class="num">Labor</th><th class="num">Expenses</th></tr></thead>
+        <tbody>${r.byEmployee.map(e => `<tr><td>${esc(e.name)}</td><td class="num">${e.days}</td><td class="num">${hrs(e.hours)}</td><td class="num">${money0(e.labor)}</td><td class="num">${money0(e.expenses)}</td></tr>`).join('') || '<tr><td colspan="5" class="muted">None</td></tr>'}</tbody></table></div></div>
+      <div class="card"><div class="cardhead"><h3>Expenses by category</h3></div>
+        <div class="tablewrap"><table><thead><tr><th>Category</th><th class="num">Amount</th><th style="width:40%"></th></tr></thead>
+        <tbody>${r.byType.map(t => `<tr><td>${esc(t.type)}</td><td class="num">${money(t.amount)}</td><td><div class="bar-inline"><span style="width:${K.expenses ? t.amount / K.expenses * 100 : 0}%"></span></div></td></tr>`).join('') || '<tr><td colspan="3" class="muted">None</td></tr>'}</tbody></table></div></div>
+    </div>
+    <div class="card"><div class="cardhead"><h3>Week by week</h3><button class="btn sm noprint" onclick="csvFromTable('jbTW','job-weekly')">CSV</button></div>
+      <div class="tablewrap"><table id="jbTW"><thead><tr><th>Week</th><th class="num">Hours</th><th class="num">Labor</th><th class="num">Expenses</th><th class="num">Total</th><th class="num">Running total</th></tr></thead>
+      <tbody>${(() => { let run = 0; return r.byWeek.map(w => { run += w.total; return `<tr><td>${weekLabel(w.week)}</td><td class="num">${hrs(w.hours)}</td><td class="num">${money0(w.labor)}</td><td class="num">${money0(w.expenses)}</td><td class="num">${money0(w.total)}</td><td class="num">${money0(run)}</td></tr>`; }).join(''); })() || '<tr><td colspan="6" class="muted">None</td></tr>'}</tbody></table></div></div>
+    <div class="card"><div class="cardhead"><h3>Time entries (${r.entries.length})</h3><button class="btn sm noprint" onclick="csvFromTable('jbTT','job-time')">CSV</button></div>
+      <div class="tablewrap" style="max-height:420px"><table id="jbTT"><thead><tr><th>Date</th><th>Employee</th><th>Time</th><th class="num">Break</th><th class="num">Hours</th><th>Notes</th><th>Status</th></tr></thead>
+      <tbody>${r.entries.map(e => `<tr><td class="nowrap">${DOW[(parseYMD(e.Date).getUTCDay() + 6) % 7]} ${pretty(e.Date)}</td><td>${esc(e.EmployeeName)}</td><td class="nowrap">${fmtTime(e.StartTime)} – ${fmtTime(e.EndTime)}</td><td class="num">${e.BreakMinutes || ''}</td><td class="num">${hrs(e.Hours)}</td><td class="small">${esc(e.Notes)}</td><td>${pill(e.Status)}</td></tr>`).join('') || '<tr><td colspan="7" class="muted">None</td></tr>'}</tbody></table></div></div>
+    <div class="card"><div class="cardhead"><h3>Expenses (${r.expenses.length})</h3><button class="btn sm noprint" onclick="csvFromTable('jbTX','job-expenses')">CSV</button></div>
+      <div class="tablewrap" style="max-height:420px"><table id="jbTX"><thead><tr><th>Date</th><th>Employee</th><th>Type</th><th>Supplier</th><th>Item</th><th>Paid with</th><th class="num">Amount</th><th>Status</th><th>Receipt</th></tr></thead>
+      <tbody>${r.expenses.map(e => `<tr><td class="nowrap">${pretty(e.Date)}</td><td>${esc(e.EmployeeName)}</td><td>${esc(e.ExpenseType)}</td><td>${esc(e.Supplier)}</td><td class="small">${esc(e.Description)}</td><td class="small">${PAY[payOf(e)]}</td><td class="num">${money(e.Amount)}</td><td>${pill(e.Status)}</td>
+        <td>${e.ReceiptURL ? `<a href="${esc(e.ReceiptURL)}" target="_blank" rel="noopener">Open ${ICON.ext}</a>` : '–'}</td></tr>`).join('') || '<tr><td colspan="9" class="muted">None</td></tr>'}</tbody></table></div></div>
+    ${r.tools.length ? `<div class="card"><h3>Tools & equipment bought for this job</h3><div class="tablewrap"><table><tr><th>Item</th><th>Date</th><th>By</th><th class="num">Amount</th><th>Warranty</th><th>Receipt</th></tr>
+      ${r.tools.map(t => { const w = warranty(t); return `<tr><td>${esc(t.Item)}</td><td>${t.PurchaseDate}</td><td>${esc(t.EmployeeName)}</td><td class="num">${money(t.Amount)}</td><td>${pill(w.cls, w.label)}</td><td><a href="${esc(t.ReceiptURL)}" target="_blank" rel="noopener">Open ${ICON.ext}</a></td></tr>`; }).join('')}</table></div></div>` : ''}`;
+  drawJobCharts();
+}
+function drawJobCharts() {
+  if (!window.Chart || !S.job || !$('#jbWeek')) return;
+  destroyCharts();
+  const r = S.job, series = [1, 2].map(i => cssVar('--s' + i)), grid = cssVar('--grid'), surface = cssVar('--surface');
+  Chart.defaults.color = cssVar('--text-2'); Chart.defaults.borderColor = grid; Chart.defaults.font.family = 'system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif';
+  const tip = { backgroundColor: cssVar('--surface'), titleColor: cssVar('--text'), bodyColor: cssVar('--text-2'), borderColor: cssVar('--border-strong'), borderWidth: 1, padding: 10 };
+  S.charts.push(new Chart($('#jbWeek'), { type: 'bar',
+    data: { labels: r.byWeek.map(w => pretty(w.week)), datasets: [
+      { label: 'Labor', data: r.byWeek.map(w => w.labor), backgroundColor: series[0], borderColor: surface, borderWidth: { top: 2 }, maxBarThickness: 34 },
+      { label: 'Expenses', data: r.byWeek.map(w => w.expenses), backgroundColor: series[1], borderColor: surface, borderWidth: { top: 2 }, borderRadius: { topLeft: 4, topRight: 4 }, maxBarThickness: 34 }] },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: grid }, ticks: { callback: v => money0(v) }, border: { display: false } } },
+      plugins: { legend: { position: 'top', align: 'start', labels: { boxWidth: 10, boxHeight: 10 } }, tooltip: Object.assign({}, tip, { callbacks: { label: c => ` ${c.dataset.label}: ${money0(c.parsed.y)}` } }) } } }));
+  S.charts.push(new Chart($('#jbEmp'), { type: 'bar',
+    data: { labels: r.byEmployee.map(e => e.name), datasets: [{ label: 'Hours', data: r.byEmployee.map(e => e.hours), backgroundColor: series[0], borderRadius: 4, borderSkipped: false, maxBarThickness: 26 }] },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { color: grid }, ticks: { callback: v => v + ' h' }, border: { display: false } }, y: { grid: { display: false } } },
+      plugins: { legend: { display: false }, tooltip: Object.assign({}, tip, { callbacks: { label: c => ` ${hrs(c.parsed.x)} h` } }) } } }));
+}
+function exportJobPdf() {
+  const f = S.jobF; $('#jobPdf').textContent = 'Building PDF…';
+  call('adminExportJobPdf', S.token, f.projectId, f.from, f.to, f.includePending).then(r => { $('#jobPdf').innerHTML = `Saved to Drive: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)} ${ICON.ext}</a>`; }).catch(e => { $('#jobPdf').textContent = ''; fail(e); });
+}
+
+/* =====================================================================
+   ADMIN – PAYROLL ASSISTANT (pre-tax)
+   ===================================================================== */
+function viewPayroll(anyDate) {
+  if (anyDate) S.payDate = anyDate;
+  const pend = !!S.payPend;
+  $('#main').innerHTML = '<div class="card muted">Calculating payroll…</div>';
+  Promise.all([call('adminGetPayroll', S.token, S.payDate || '', pend), call('adminListPayrollRuns', S.token)]).then(([r, runs]) => { S.pay = r; S.payRuns = runs; S.payDate = r.start; drawPayroll(); }).catch(fail);
+}
+function drawPayroll() {
+  const r = S.pay, T = r.totals, run = r.run;
+  $('#main').innerHTML = `
+    <div class="card"><div class="cardhead"><h2>Payroll assistant</h2><span class="pill neutral">${esc(r.mode)} pay period</span></div>
+      <div class="weeknav">
+        <button class="btn sm" onclick="viewPayroll(addDays(S.pay.start,-1))">‹ Prev</button>
+        <div class="label">${pretty(r.start)} – ${pretty(r.end)}, ${r.end.slice(0, 4)}</div>
+        <button class="btn sm" onclick="viewPayroll(addDays(S.pay.end,1))">Next ›</button>
+        <label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" ${S.payPend ? 'checked' : ''} onchange="S.payPend=this.checked;viewPayroll(S.pay.start)"> Preview incl. hours not yet approved</label>
+      </div>
+      <p class="tiny" style="margin-bottom:0">Overtime rule: <b>${esc(r.rule)}</b> at <b>×${r.multiplier}</b> · All amounts are <b>before tax</b> (no taxes or deductions). Change the pay period and overtime rule in Settings.</p></div>
+    ${run ? `<div class="banner good">Finalized as <b>${esc(run.RunID)}</b> by ${esc(run.CreatedBy)} on ${esc(run.CreatedAt)} · payout ${money(run.TotalPayout)}.
+      <a href="${esc(run.PdfURL)}" target="_blank" rel="noopener">Open PDF ${ICON.ext}</a></div>` : ''}
+    ${T.warnings ? `<div class="banner warn">${T.warnings} thing${T.warnings > 1 ? 's' : ''} to check before paying – see the warnings under each employee.</div>` : ''}
+    <div class="kpis">
+      <div class="kpi"><div class="k">Hours</div><div class="v">${hrs(T.hours)}</div><div class="s">${hrs(T.regular)} regular · ${hrs(T.overtime)} overtime</div></div>
+      <div class="kpi"><div class="k">Gross wages</div><div class="v">${money0(T.wages)}</div><div class="s">pre-tax</div></div>
+      <div class="kpi"><div class="k">Reimbursements</div><div class="v">${money0(T.reimbursements + T.allowances)}</div><div class="s">${money0(T.allowances)} allowances</div></div>
+      <div class="kpi"><div class="k">Expected payout</div><div class="v">${money0(T.payout)}</div><div class="s">wages + reimbursements, pre-tax</div></div>
+      <div class="kpi"><div class="k">Company card</div><div class="v">${money0(T.companyCard)}</div><div class="s">recorded, not payable</div></div>
+    </div>
+    <div class="card"><div class="cardhead"><h3>Per employee</h3><button class="btn sm" onclick="csvFromTable('tblPay','payroll-${r.start}')">Download CSV</button></div>
+      <div class="tablewrap"><table id="tblPay"><thead><tr><th>Employee</th><th class="num">Hours</th><th class="num">Regular</th><th class="num">OT</th><th class="num">Rate</th><th class="num">Regular pay</th><th class="num">OT pay</th><th class="num">Gross wages</th><th class="num">Reimburse</th><th class="num">Allowance</th><th class="num">Payout (pre-tax)</th><th class="num">Co. card</th></tr></thead>
+      <tbody>${r.employees.map((e, i) => `<tr class="click" onclick="const n=document.getElementById('payd${i}');n.classList.toggle('hidden')">
+        <td><b>${esc(e.name)}</b> ${e.warnings.length ? `<span class="pill Submitted">⚠ ${e.warnings.length}</span>` : ''}</td><td class="num">${hrs(e.hours)}</td><td class="num">${hrs(e.regular)}</td><td class="num">${hrs(e.overtime)}</td><td class="num">${money(e.rate)}</td>
+        <td class="num">${money(e.regPay)}</td><td class="num">${money(e.otPay)}</td><td class="num"><b>${money(e.wages)}</b></td><td class="num">${money(e.reimbursements)}</td><td class="num">${money(e.allowances)}</td><td class="num"><b>${money(e.payout)}</b></td><td class="num">${money(e.companyCard)}</td></tr>
+        <tr id="payd${i}" class="${e.warnings.length ? '' : 'hidden'}"><td colspan="12" class="small">
+          ${e.warnings.map(w => `<div style="color:var(--warn)">⚠ ${esc(w)}</div>`).join('')}
+          ${e.weeks.length ? `<div class="muted">Weeks: ${e.weeks.map(w => `${pretty(w.week)} ${hrs(w.hours)} h${w.overtime ? ' (' + hrs(w.overtime) + ' OT)' : ''}`).join(' · ')}</div>` : ''}
+          ${e.expenses.length ? `<div class="muted">Reimbursing: ${e.expenses.map(x => `${pretty(x.date)} ${esc(x.supplier)} ${money(x.amount)}${x.method === 'Allowance' ? ' (allowance)' : ''}`).join(' · ')}</div>` : ''}
+        </td></tr>`).join('') || '<tr><td colspan="12" class="muted">No employees.</td></tr>'}</tbody>
+      <tfoot><tr><td>Total</td><td class="num">${hrs(T.hours)}</td><td class="num">${hrs(T.regular)}</td><td class="num">${hrs(T.overtime)}</td><td></td><td></td><td></td><td class="num">${money(T.wages)}</td><td class="num">${money(T.reimbursements)}</td><td class="num">${money(T.allowances)}</td><td class="num">${money(T.payout)}</td><td class="num">${money(T.companyCard)}</td></tr></tfoot></table></div>
+      <p class="tiny">Click a row for details. Reimbursements include every approved, not-yet-paid expense the employee paid for (dated on or before the period end). Company-card purchases are never paid back.</p>
+      <div class="row">${run ? `<button class="btn" onclick="payEmail('${esc(run.RunID)}')">Email each employee their pay summary</button>`
+        : `<button class="btn primary" ${S.payPend ? 'disabled title="Untick the preview option first"' : ''} onclick="payFinalize()">Finalize payroll</button><span class="tiny">Finalizing saves a PDF to Drive and marks reimbursed expenses as paid so they are never paid twice.</span>`}</div>
+    </div>
+    <div class="card"><h3>Payroll history</h3><div class="tablewrap"><table><tr><th>Run</th><th>Period</th><th>Status</th><th class="num">Hours</th><th class="num">Wages</th><th class="num">Reimburse</th><th class="num">Payout</th><th>By</th><th></th></tr>
+      ${S.payRuns.map(x => `<tr><td class="small">${esc(x.RunID)}</td><td class="nowrap">${pretty(x.PeriodStart)} – ${pretty(x.PeriodEnd)}, ${x.PeriodEnd.slice(0, 4)}</td><td>${pill(x.Status === 'Finalized' ? 'Approved' : 'Rejected', x.Status)}</td>
+        <td class="num">${hrs(x.TotalHours)}</td><td class="num">${money0(x.TotalWages)}</td><td class="num">${money0(x.TotalReimburse)}</td><td class="num"><b>${money0(x.TotalPayout)}</b></td><td class="small">${esc(x.CreatedBy)}</td>
+        <td class="nowrap">${x.PdfURL ? `<a class="btn sm" href="${esc(x.PdfURL)}" target="_blank" rel="noopener">PDF</a>` : ''} <button class="btn sm ghost" onclick="viewPayroll('${x.PeriodStart}')">Open</button>
+        ${x.Status === 'Finalized' ? `<button class="btn sm ghost danger" onclick="payVoid('${esc(x.RunID)}')">Void</button>` : ''}</td></tr>`).join('') || '<tr><td colspan="9" class="muted">No payroll finalized yet.</td></tr>'}
+    </table></div></div>`;
+}
+function payFinalize() {
+  const T = S.pay.totals;
+  if (!confirm(`Finalize payroll for ${pretty(S.pay.start)} – ${pretty(S.pay.end)}?\n\nExpected payout (pre-tax): ${money(T.payout)}` + (T.warnings ? `\n\n⚠ ${T.warnings} warning(s) – unapproved hours/expenses are NOT included.` : ''))) return;
+  call('adminFinalizePayroll', S.token, S.pay.start).then(r => { toast('Payroll finalized: ' + r.runId, 'good'); viewPayroll(S.pay.start); }).catch(fail);
+}
+function payVoid(id) {
+  if (!confirm('Void payroll ' + id + '? Its reimbursed expenses become unpaid again so they show in the next payroll.')) return;
+  call('adminVoidPayrollRun', S.token, id).then(() => { toast('Payroll voided.', 'good'); viewPayroll(S.pay.start); }).catch(fail);
+}
+function payEmail(id) {
+  if (!confirm('Email every employee in this payroll their pre-tax pay summary? (They also see it in the app.)')) return;
+  call('adminEmailPaySummaries', S.token, id).then(r => toast(`${r.sent} pay summar${r.sent === 1 ? 'y' : 'ies'} emailed.` + (r.skipped.length ? ' Skipped: ' + r.skipped.join(', ') : ''), 'good')).catch(fail);
+}
+
+/* =====================================================================
+   ADMIN – DATA & BACKUP
+   ===================================================================== */
+function viewData() {
+  $('#main').innerHTML = '<div class="card muted">Loading…</div>';
+  Promise.all([call('adminListTrash', S.token), call('adminListBackups', S.token)]).then(([trash, backups]) => { S.trash = trash; S.backups = backups; drawData(); }).catch(fail);
+}
+function drawData() {
+  $('#main').innerHTML = `
+    <div class="card"><div class="cardhead"><h2>Backups</h2><button class="btn primary" onclick="backupNow()">Back up now</button></div>
+      <p class="small muted" style="margin-top:0">A full copy of the database is saved in your Drive folder <b>Backups</b> every night (Settings → AutoBackup), and automatically before any clear or restore. Receipt photos stay in Drive and are not affected.</p>
+      <div class="tablewrap" style="max-height:340px"><table><tr><th>Backup</th><th>Created</th><th></th></tr>
+      ${S.backups.map(b => `<tr><td><b>${esc(b.name)}</b></td><td class="nowrap">${esc(b.created)}</td><td class="nowrap"><a class="btn sm" href="${esc(b.url)}" target="_blank" rel="noopener">Open ${ICON.ext}</a> <button class="btn sm ghost danger" onclick="restoreBackup('${esc(b.id)}','${esc(b.name)}')">Restore</button></td></tr>`).join('') || '<tr><td colspan="3" class="muted">No backups yet – press “Back up now”.</td></tr>'}
+      </table></div></div>
+    <div class="card"><div class="cardhead"><h2>Trash</h2>${S.trash.length ? `<button class="btn sm ghost danger" onclick="purge('all')">Empty trash</button>` : ''}</div>
+      <p class="small muted" style="margin-top:0">Anything deleted (timesheets, expenses, employees, job sites, tools) waits here until you restore it or empty the trash.</p>
+      <div class="tablewrap" style="max-height:380px"><table><tr><th>Deleted</th><th>What</th><th>By</th><th></th></tr>
+      ${S.trash.map(t => `<tr><td class="nowrap small">${esc(t.DeletedAt)}</td><td>${esc(t.Summary)}</td><td class="small">${esc(t.DeletedBy)}</td>
+        <td class="nowrap"><button class="btn sm" onclick="restoreTrash('${esc(t.TrashID)}')">Restore</button> <button class="btn sm ghost danger" onclick="purge('${esc(t.TrashID)}')">Delete forever</button></td></tr>`).join('') || '<tr><td colspan="4" class="muted">Trash is empty.</td></tr>'}
+      </table></div></div>
+    <div class="card"><h2>Clear data</h2>
+      <p class="small muted" style="margin-top:0">Removes old or test records in bulk. A backup is made automatically first, so this can be undone with <b>Restore</b>. Employees, job sites and settings are never cleared here.</p>
+      <div class="row">
+        <div class="field"><label for="clrBefore">Clear records dated before</label><input type="date" id="clrBefore"></div>
+        <label class="small" style="display:flex;gap:6px;align-items:center;min-height:38px"><input type="checkbox" id="clrAll"> Clear everything (ignore date)</label>
+      </div>
+      <div class="row" style="gap:14px;margin:10px 0">${[['timesheets', 'Timesheets & hours'], ['expenses', 'Expenses'], ['tools', 'Tools register'], ['notifications', 'Notifications'], ['audit', 'Audit log'], ['payroll', 'Payroll history'], ['trash', 'Trash']]
+        .map(([k, l]) => `<label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-clr="${k}" ${k === 'notifications' ? 'checked' : ''}> ${l}</label>`).join('')}</div>
+      <button class="btn bad" onclick="clearData()">Clear selected data…</button><div id="clrOut" class="small" style="margin-top:8px"></div></div>`;
+}
+function backupNow() { call('adminBackupNow', S.token, 'manual').then(b => { S.backups = b; drawData(); toast('Backup saved to Drive.', 'good'); }).catch(fail); }
+function restoreBackup(id, name) {
+  const w = prompt(`Restore "${name}"?\n\nALL current data (timesheets, expenses, employees, settings…) will be replaced by this backup. A safety backup of the current data is made first.\n\nType RESTORE to continue:`);
+  if (w === null) return;
+  call('adminRestoreBackup', S.token, id, w.trim()).then(r => { toast('Restored ' + r.restored + '. Safety copy: ' + r.safety.name, 'good'); return call('getBoot', S.token); }).then(b => { if (b) S.boot = b; viewData(); }).catch(fail);
+}
+function restoreTrash(id) { call('adminRestoreTrash', S.token, id).then(t => { S.trash = t; drawData(); toast('Restored.', 'good'); call('getBoot', S.token).then(b => S.boot = b).catch(() => {}); }).catch(fail); }
+function purge(id) {
+  if (!confirm(id === 'all' ? 'Permanently delete everything in the trash? Receipt photos of deleted expenses go to the Drive bin.' : 'Permanently delete this item?')) return;
+  call('adminPurgeTrash', S.token, id).then(t => { S.trash = t; drawData(); toast('Deleted permanently.', 'good'); }).catch(fail);
+}
+function clearData() {
+  const all = $('#clrAll').checked, before = $('#clrBefore').value;
+  if (!all && !before) return toast('Pick a date, or tick “Clear everything”.', 'bad');
+  const opts = { before: all ? '' : before }; $$('[data-clr]').forEach(c => opts[c.dataset.clr] = c.checked);
+  const what = $$('[data-clr]').filter(c => c.checked).map(c => c.parentNode.textContent.trim());
+  if (!what.length) return toast('Tick at least one kind of data.', 'bad');
+  const w = prompt(`Clear ${what.join(', ')} ${all ? '(EVERYTHING)' : 'dated before ' + before}?\n\nA backup is made first. Type DELETE to continue:`);
+  if (w === null) return;
+  call('adminClearData', S.token, opts, w.trim()).then(r => {
+    $('#clrOut').innerHTML = 'Removed: ' + (Object.entries(r.removed).map(([k, v]) => `${v} ${k}`).join(', ') || 'nothing') + `. Backup: <a href="${esc(r.backup.url)}" target="_blank" rel="noopener">${esc(r.backup.name)}</a>`;
+    toast('Data cleared. A backup was saved first.', 'good');
+    call('adminListBackups', S.token).then(b => { S.backups = b; }).catch(() => {});
+  }).catch(fail);
+}
+
+/* =====================================================================
+   PHONE-APP FEATURES: install, offline, updates
+   ===================================================================== */
+const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function installCardHtml(force) {
+  if (isStandalone()) return force ? `<div class="card" style="max-width:480px"><h3>App</h3><p class="small muted" style="margin:0">✓ EASTSIDER is installed on this device.</p></div>` : '';
+  const inApps = !(window.google && google.script && google.script.host);
+  if (!inApps && !force) return '';
+  return `<div class="card installcard" style="max-width:480px">
+    <div class="row" style="align-items:center;flex-wrap:nowrap">${LOGO(40)}<div style="flex:1"><b>Install the EASTSIDER app</b><div class="tiny">Opens in its own window with its own icon – separate from your Google accounts.</div></div>
+    <button class="btn primary sm" onclick="installApp()">Install</button></div></div>`;
+}
+function installApp() {
+  if (S.installEvt) { S.installEvt.prompt(); S.installEvt.userChoice.then(() => { S.installEvt = null; $$('.installbtn').forEach(b => b.classList.add('hidden')); }); return; }
+  modal(`<h2>Install EASTSIDER</h2>${isIOS() ? `
+    <ol class="small"><li>Open this page in <b>Safari</b>.</li><li>Tap the <b>Share</b> button <span aria-hidden="true">⬆︎</span>.</li><li>Scroll and tap <b>Add to Home Screen</b>, then <b>Add</b>.</li></ol>` : `
+    <ol class="small"><li>Open this page in <b>Chrome</b> (or Edge / Samsung Internet).</li><li>Tap the <b>⋮</b> menu.</li><li>Tap <b>Install app</b> (or <b>Add to Home screen</b>).</li></ol>
+    <p class="small muted">On a computer: click the install icon at the right end of the address bar.</p>`}
+    <p class="tiny">The installed app keeps you signed in and opens in its own window.</p><button class="btn" onclick="closeOverlay()">OK</button>`);
+}
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.installEvt = e; $$('.installbtn').forEach(b => b.classList.remove('hidden')); });
+window.addEventListener('appinstalled', () => { S.installEvt = null; toast('EASTSIDER installed.', 'good'); });
+function updateOnline() { const o = $('#offline'); if (o) o.classList.toggle('hidden', navigator.onLine !== false); }
+window.addEventListener('online', () => { updateOnline(); toast('Back online.', 'good'); });
+window.addEventListener('offline', updateOnline);
+if (navigator.serviceWorker) navigator.serviceWorker.addEventListener('controllerchange', () => { if (S.swReady) toast('EASTSIDER was updated – reload to use the newest version.'); S.swReady = true; });
+
+/* ---------- boot ---------- */
+window.addEventListener('beforeunload', ev => { if (S.ts && S.ts.dirty && S.tab === 'timesheet') { ev.preventDefault(); ev.returnValue = ''; } });
+applyTheme();
+(function init() {
+  const t = store.get('ct_token') || sstore.get('ct_token');
+  if (!t) return renderLogin();
+  S.token = t;
+  call('getBoot', t).then(b => { S.boot = b; startApp(); }).catch(() => renderLogin());
+})();
+</script>
+
+</body>
+</html>
