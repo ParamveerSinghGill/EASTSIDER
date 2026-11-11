@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>EASTSIDER – Eastside Design and Construction</title>
   <meta name="description" content="EASTSIDER by Eastside Design and Construction – timesheets, expenses, job costing and payroll">
-  <meta name="theme-color" content="#17375e">
+  <meta name="theme-color" content="#111111">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
   <link rel="manifest" href="manifest.webmanifest">
@@ -20,8 +20,8 @@
   color-scheme: light;
   --bg: #f4f4f2; --surface: #ffffff; --surface-2: #f8f8f6; --border: #e2e1dc; --border-strong: #c9c8c1;
   --text: #121211; --text-2: #52514e; --text-3: #7a7973;
-  --accent: #17375e; --accent-ink: #ffffff; --accent-soft: #e8eef6; --link: #1f5fa8;
-  --brand-navy: #17375e; --brand-amber: #e8a33d; --topbar: #17375e; --topbar-ink: #ffffff; --topbar-2: #c9d6e6;
+  --accent: #161616; --accent-ink: #ffffff; --accent-soft: #ececea; --link: #1f5fa8;
+  --brand-navy: #111111; --brand-amber: #c9c9c4; --topbar: #111111; --topbar-ink: #ffffff; --topbar-2: #c9c9c4;
   --good: #1f7a1f; --good-soft: #e3f3e3; --warn: #9a5b00; --warn-soft: #fdf1dc; --bad: #c0392b; --bad-soft: #fbe7e5;
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
   --grid: #e8e7e2; --shadow: 0 1px 2px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
@@ -32,8 +32,8 @@
     color-scheme: dark;
     --bg: #121211; --surface: #1a1a19; --surface-2: #222220; --border: #2f2f2c; --border-strong: #45443f;
     --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938a;
-    --accent: #79aeea; --accent-ink: #0d1b2a; --accent-soft: #1b2a3c; --link: #8dbcf0;
-    --topbar: #0f2440; --topbar-ink: #ffffff; --topbar-2: #a9bcd3;
+    --accent: #f0efec; --accent-ink: #111111; --accent-soft: #2a2a28; --link: #8dbcf0;
+    --topbar: #000000; --topbar-ink: #ffffff; --topbar-2: #b5b4ad;
     --good: #5cc45c; --good-soft: #1c2e1c; --warn: #f0b04a; --warn-soft: #33270f; --bad: #f07167; --bad-soft: #3a1d1a;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
     --grid: #2c2c29; --shadow: none;
@@ -43,8 +43,8 @@
   color-scheme: dark;
   --bg: #121211; --surface: #1a1a19; --surface-2: #222220; --border: #2f2f2c; --border-strong: #45443f;
   --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938a;
-  --accent: #79aeea; --accent-ink: #0d1b2a; --accent-soft: #1b2a3c; --link: #8dbcf0;
-  --topbar: #0f2440; --topbar-ink: #ffffff; --topbar-2: #a9bcd3;
+  --accent: #f0efec; --accent-ink: #111111; --accent-soft: #2a2a28; --link: #8dbcf0;
+  --topbar: #000000; --topbar-ink: #ffffff; --topbar-2: #b5b4ad;
   --good: #5cc45c; --good-soft: #1c2e1c; --warn: #f0b04a; --warn-soft: #33270f; --bad: #f07167; --bad-soft: #3a1d1a;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
   --grid: #2c2c29; --shadow: none;
@@ -62,11 +62,18 @@ h1, h2, h3 { margin: 0 0 8px; line-height: 1.2; } h1 { font-size: 22px; } h2 { f
 .topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); background: var(--topbar); color: var(--topbar-ink); }
 .topbar .iconbtn { color: var(--topbar-2); } .topbar .iconbtn:hover { background: rgba(255,255,255,.12); color: #fff; }
 .topbar .btn { background: transparent; border-color: rgba(255,255,255,.35); color: #fff; } .topbar .btn:hover { background: rgba(255,255,255,.12); }
-.brand { font-weight: 700; line-height: 1.15; min-width: 0; } .brand small { display: block; font-weight: 400; color: var(--topbar-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand { font-weight: 700; line-height: 1.15; min-width: 0; flex: 0 1 auto; overflow: hidden; }
+.topbar .spacer { min-width: 4px; } .topbar .iconbtn, .topbar .btn { flex: none; }
+@media (max-width: 480px) {
+  .topbar { gap: 4px; padding-left: 10px; padding-right: 10px; }
+  .topbar .themebtn { display: none; } /* dark mode still follows the phone's own setting */
+  .wordmark.sm { font-size: 13px; letter-spacing: .1em; }
+  .topbar .logo { width: 30px; height: 30px; }
+} .brand small { display: block; font-weight: 400; color: var(--topbar-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wordmark { font-weight: 800; letter-spacing: .18em; font-size: 26px; } .wordmark.sm { font-size: 16px; letter-spacing: .16em; }
-.tagline { color: var(--brand-amber); font-size: 13px; font-weight: 600; }
+.tagline { color: var(--brand-amber); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .logo { flex: none; border-radius: 10px; }
-.brandhero { display: flex; align-items: center; gap: 14px; background: var(--brand-navy); color: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+.brandhero { display: flex; align-items: center; gap: 14px; background: #000; color: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
 .offline { background: var(--warn-soft); color: var(--warn); text-align: center; font-size: 13px; padding: 6px 12px; font-weight: 600; }
 .nowrap { white-space: nowrap; }
 .btn.danger, .btn.ghost.danger { color: var(--bad); }
@@ -88,9 +95,14 @@ h1, h2, h3 { margin: 0 0 8px; line-height: 1.2; } h1 { font-size: 22px; } h2 { f
   .tabs.emp .tab { flex: 1; }
   .tab.active { border-top-color: var(--accent); }
   .tab .count { position: absolute; top: 2px; right: 10px; margin: 0; }
-  main { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
-  .totalbar { bottom: calc(64px + env(safe-area-inset-bottom)); }
-  #toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  body main { padding-bottom: calc(var(--navh, 90px) + 24px); }
+  body main .totalbar { bottom: calc(var(--navh, 90px) + 6px); padding: 10px 12px; gap: 8px; }
+  body main .totalbar .spacer { display: none; }
+  body main .totalbar > div:first-child { flex: 1 1 auto; }
+  body main .totalbar .btn { flex: 1 1 40%; min-height: 46px; font-size: 16px; }
+  body main .totalbar .big { font-size: 20px; }
+  body #toast { bottom: calc(var(--navh, 90px) + 12px); }
+  body main .dayhead { flex-wrap: wrap; row-gap: 6px; }
   .brand small { max-width: 38vw; }
   .topbar .btn.sm { padding: 4px 8px; }
   input, select, textarea { font-size: 16px; } /* stops iPhone zooming into fields */
@@ -152,7 +164,7 @@ tfoot td { font-weight: 700; background: var(--surface-2); }
 /* timesheet */
 .day { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; background: var(--surface); }
 .dayhead { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--surface-2); border-bottom: 1px solid var(--border); border-radius: 10px 10px 0 0; }
-.dayhead b { min-width: 92px; }
+.dayhead b { min-width: 92px; } .dayhead .muted { white-space: nowrap; }
 .entry { display: grid; grid-template-columns: minmax(150px, 2fr) 100px 100px 90px minmax(120px, 2fr) 60px 34px; gap: 8px; padding: 8px 12px; align-items: center; border-bottom: 1px dashed var(--border); }
 .entry:last-child { border-bottom: 0; }
 .entry .hrs { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
@@ -320,8 +332,9 @@ const TAB_ICON = {
   settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
 };
 const tabIcon = k => `<svg class="ti" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TAB_ICON[k] || ''}</svg>`;
-/* Eastside logo mark: house roofline over an E */
-const LOGO = (size) => `<svg class="logo" width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#17375e"/><path d="M12 30 32 13l20 17" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 30h20M22 30v20h20M22 40h15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+/* Eastside Design & Construction logo mark (19 tapered bars forming a roof/peak), drawn as a vector */
+const MARK_D = 'M634.2 2L644.8 2L642.2 307L636.8 307ZM607.1 18L617.6 18L615.1 332L609.6 332ZM661.4 18L671.9 18L669.4 332L663.9 332ZM580.0 38L590.5 38L588.0 367L582.5 367ZM688.5 38L699.0 38L696.5 367L691.0 367ZM553.0 63L563.5 63L561.0 392L555.5 392ZM715.5 63L726.0 63L723.5 392L718.0 392ZM525.9 94L536.4 94L533.9 421L528.4 421ZM742.6 94L753.1 94L750.6 421L745.1 421ZM498.8 128L509.2 128L506.8 447L501.2 447ZM769.8 128L780.2 128L777.8 447L772.2 447ZM471.6 170L482.1 170L479.6 532L474.1 532ZM796.9 170L807.4 170L804.9 532L799.4 532ZM444.5 218L455.0 218L452.5 517L447.0 517ZM824.0 218L834.5 218L832.0 517L826.5 517ZM417.4 280L427.9 280L425.4 490L419.9 490ZM851.0 280L861.5 280L859.0 490L853.5 490ZM390.4 363L400.9 363L398.4 460L392.9 460ZM878.1 363L888.6 363L886.1 460L880.6 460Z';
+const LOGO = (size, bg) => `<svg class="logo" width="${size}" height="${size}" viewBox="339 -33 600 600" aria-label="Eastside Design and Construction"><rect x="339" y="-33" width="600" height="600" rx="96" fill="${bg || '#111'}"/><path d="${MARK_D}" fill="#fff"/></svg>`;
 const PAY = { Personal: 'Paid by me', 'Company Card': 'Company card', Allowance: 'Allowance' };
 const payOf = e => e.PaymentMethod || 'Personal';
 const payPill = e => { const m = payOf(e); return m === 'Personal' ? '' : `<span class="pill ${m === 'Company Card' ? 'card' : 'allow'}">${m === 'Company Card' ? 'Company card' + (e.CardUsed ? ' · ' + esc(e.CardUsed) : '') : 'Allowance'}</span>`; };
@@ -364,7 +377,7 @@ function toggleTheme() {
 function renderLogin(msg) {
   $('#app').innerHTML = `
   <div class="login">
-    <div class="brandhero">${LOGO(56)}<div><div class="wordmark">EASTSIDER</div><div class="tagline">by Eastside Design and Construction</div></div></div>
+    <div class="brandhero">${LOGO(72, "#000")}<div><div class="wordmark">EASTSIDER</div><div class="tagline">by Eastside Design and Construction</div></div></div>
     <div class="card">
       <h2 style="margin-bottom:2px">Sign in</h2>
       <p class="muted small" style="margin-top:0">Timesheets, expenses & job tracking</p>
@@ -410,7 +423,7 @@ function startApp() {
       <button class="iconbtn installbtn ${S.installEvt ? '' : 'hidden'}" title="Install the app" aria-label="Install the app" onclick="installApp()">${ICON.install}</button>
       <button class="iconbtn" title="Refresh" aria-label="Refresh" onclick="go(S.tab)">${ICON.refresh}</button>
       <button class="iconbtn bell" title="Notifications" aria-label="Notifications" onclick="openNotifs()">${ICON.bell}<span class="dot ${S.boot.unread ? '' : 'hidden'}" id="bellDot">${S.boot.unread || ''}</span></button>
-      <button class="iconbtn" title="Light / dark" aria-label="Toggle theme" onclick="toggleTheme()">${ICON.moon}</button>
+      <button class="iconbtn themebtn" title="Light / dark" aria-label="Toggle theme" onclick="toggleTheme()">${ICON.moon}</button>
       <button class="btn sm" onclick="doLogout()">Log out</button>
     </div>
     <div id="offline" class="offline hidden">You are offline – changes can't be saved until the connection is back.</div>
@@ -418,10 +431,17 @@ function startApp() {
     <main id="main"></main>`;
   const deep = new URLSearchParams(location.search).get('tab');
   go(deep || sstore.get('ct_tab_' + S.boot.user.role) || tabsFor()[0][0]);
-  updateOnline();
+  updateOnline(); syncNavH();
+  try { if (window.ResizeObserver) new ResizeObserver(syncNavH).observe($('#tabs')); } catch (e) {}
   if (S.notifTimer) clearInterval(S.notifTimer);
   S.notifTimer = setInterval(pollNotifs, 60000); pollNotifs();
 }
+/* Keeps page content (and the Submit bar) above the phone's bottom tab bar, whatever its real height. */
+function syncNavH() {
+  const t = $('#tabs'); const h = t && getComputedStyle(t).position === 'fixed' ? t.offsetHeight : 0;
+  document.documentElement.style.setProperty('--navh', h + 'px');
+}
+window.addEventListener('resize', () => syncNavH());
 function go(tab) {
   if (!tabsFor().some(t => t[0] === tab)) tab = tabsFor()[0][0];
   S.tab = tab; sstore.set('ct_tab_' + S.boot.user.role, tab);
@@ -486,7 +506,7 @@ function drawTimesheet() {
     const total = idx.reduce((a, [l]) => a + lineHours(l), 0);
     days += `<div class="day">
       <div class="dayhead"><b>${DOW[i]} ${pretty(d)}</b><span class="muted small">${total ? hrs(total) + ' h' : ''}</span><span class="spacer"></span>
-        ${locked ? '' : `${i > 0 ? `<button class="btn sm ghost" onclick="tsCopyPrev('${d}')">Copy previous day</button>` : ''}<button class="btn sm" onclick="tsAdd('${d}')">+ Add entry</button>`}</div>
+        ${locked ? '' : `${i > 0 ? `<button class="btn sm ghost" onclick="tsCopyPrev('${d}')">Copy prev. day</button>` : ''}<button class="btn sm" onclick="tsAdd('${d}')">+ Add entry</button>`}</div>
       <div class="daybody">${idx.length ? idx.map(([l, j]) => tsLineHtml(l, j, locked)).join('') : `<div class="empty">No hours</div>`}</div>
     </div>`;
   }
